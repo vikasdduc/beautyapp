@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "32518278088",
+    "project_id": "glamcodeflutter",
+    "storage_bucket": "glamcodeflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32518278088:android:b6410584edf25b42308efd",
+        "android_client_info": {
+          "package_name": "com.glamcode.salon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32518278088-n656e58r6jrr51ctcpfv6m70jbrbb0hl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwhkMkZRsfmIezAuQOePphi9Xd8DlZfQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32518278088-n656e58r6jrr51ctcpfv6m70jbrbb0hl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
