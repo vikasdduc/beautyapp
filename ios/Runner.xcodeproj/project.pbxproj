@@ -523,7 +523,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.glamcode.salon;
+				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -710,7 +710,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.glamcode.salon;
+				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -741,7 +741,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.glamcode.salon;
+				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

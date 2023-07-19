@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>32518278088-bdu4mu7g449d9q95c9erm8keo6srqm77.apps.googleusercontent.com</string>
+	<string>32518278088-epkalhruefeflcssd8incu7531vpqbk8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.32518278088-bdu4mu7g449d9q95c9erm8keo6srqm77</string>
+	<string>com.googleusercontent.apps.32518278088-epkalhruefeflcssd8incu7531vpqbk8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>32518278088-5dg337nhqaf9salnj6o43k78j1fujr2i.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyD9hZsKyj6zbXdOJN0ZEOKfj3dXNPyvfDU</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.glamcode.salon</string>
+	<string>in.glamcode.app</string>
 	<key>PROJECT_ID</key>
 	<string>glamcodeflutter</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:32518278088:ios:7ae252f1f363e1ec308efd</string>
+	<string>1:32518278088:ios:c32349fa85c378c4308efd</string>
 </dict>
 </plist>
