@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glamcode/data/api/api_helper.dart';
-
 import 'package:glamcode/view/base/error_screen.dart';
 import 'package:glamcode/view/screens/select_booking/bookingslotmodel.dart';
 import 'package:intl/intl.dart';
@@ -101,9 +100,12 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                 } else if (cartState is CartDataLoaded) {
                   String selectedDateTime =
                       cartState.cartData.bookingDateTime ?? "";
-                  final DateTime dateTime = DateTime.parse(selectedDateTime);
-                  final DateFormat formatter = DateFormat('HH:mm:ss');
-                  final timeSlot = formatter.format(dateTime);
+                  String timeSlot = "";
+                  try {
+                    final DateTime dateTime = DateTime.parse(selectedDateTime);
+                    final DateFormat formatter = DateFormat('HH:mm:ss');
+                    timeSlot = formatter.format(dateTime);
+                  } catch (e) {}
                   return FutureBuilder<BookingSlotModel?>(
                     future: _future,
                     builder: (context, snapshot) {

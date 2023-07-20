@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:glamcode/blocs/cart_data/cart_data_bloc.dart';
@@ -10,7 +11,6 @@ import 'package:meta/meta.dart';
 import '../../data/repository/shopping_repository.dart';
 
 part 'cart_event.dart';
-
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
@@ -47,8 +47,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     if (state is CartLoaded) {
       try {
         await shoppingRepository.addItemToCart(event.item);
-        state.cart.items[event.item] = 1 + (state.cart.items[event.item] ?? 0);
-        emit(CartLoaded(cart: Cart(items: {...state.cart.items})));
+        final mapCartCopy = Map<ServicePackage, int>.from(
+            Map<ServicePackage, int>.unmodifiable(state.cart.items));
+        mapCartCopy[event.item] = 1 + (state.cart.items[event.item] ?? 0);
+        emit(CartLoaded(cart: Cart(items: {...mapCartCopy})));
         cartDataBloc.add(CartDataUpdate());
       } catch (_) {
         print(_.toString());

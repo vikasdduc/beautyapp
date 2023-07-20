@@ -40,11 +40,14 @@ class ShoppingRepository {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.containsKey("cart")) {
         cart = cartDecode(prefs.getString("cart") ?? "{}");
+        final mapCartCopy = Map<ServicePackage, int>.from(
+            Map<ServicePackage, int>.unmodifiable(cart));
         if (cart.containsKey(servicePackage)) {
-          cart[servicePackage] = (cart[servicePackage] ?? 0) + 1;
+          mapCartCopy[servicePackage] = (cart[servicePackage] ?? 0) + 1;
         } else {
-          cart[servicePackage] = 1;
+          mapCartCopy[servicePackage] = 1;
         }
+        cart = mapCartCopy;
         prefs.setString("cart", cartEncode(cart));
       } else {
         cart = {};
