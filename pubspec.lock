@@ -449,7 +449,7 @@ packages:
   flutter_app_version_checker:
     dependency: "direct main"
     description:
-      path: "../app_version_checker"
+      path: "clone_libs/app_version_checker"
       relative: true
     source: path
     version: "0.3.2"
@@ -954,7 +954,7 @@ packages:
   new_version:
     dependency: "direct main"
     description:
-      path: "../new_version"
+      path: "clone_libs/new_version"
       relative: true
     source: path
     version: "0.3.1"
