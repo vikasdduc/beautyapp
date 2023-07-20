@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:glamcode/data/model/address_details_model.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
 
@@ -17,6 +18,53 @@ class SelectAddressScreen extends StatefulWidget {
 }
 
 class _SelectAddressScreenState extends State<SelectAddressScreen> {
+  LatLong currentLocation = LatLong(0, 0);
+  @override
+  void initState() {
+    super.initState();
+    fetchLocation();
+  }
+
+  void fetchLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    final p = await Geolocator.getLastKnownPosition();
+    if (p == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        currentLocation = LatLong(p.latitude, p.longitude);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +72,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         title: Text("Map Screen"),
       ),
       body: OpenStreetMapSearchAndPick(
-        center: LatLong(26.8467, 80.9462),
+        center: currentLocation,
         onPicked: (pickedData) {
           setState(() {
             widget.addressDetails.address = pickedData.address;
@@ -41,7 +89,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => NewAddressScreen(
-                address:  pickedData.address,
+                address: pickedData.address,
                 locAddress: pickedData.address,
                 latitude: pickedData.latLong.latitude,
                 longitude: pickedData.latLong.latitude,

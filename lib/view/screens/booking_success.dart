@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:glamcode/data/model/payments/PaymentResponse.dart';
 import 'package:glamcode/screen_size.dart';
-
 import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
 
 class BookingSuccessScreen extends StatefulWidget {
@@ -20,7 +18,6 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
 
   @override
   void initState() {
-  
     super.initState();
     _showFrontSide = true;
     _flipXAxis = true;
@@ -85,7 +82,7 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
                   Column(
                     children: [
                       Text(
-                        "Yay you just wan a ${bookingResponse.coupon?.points.toString()}",
+                        "Yay you just won a ${bookingResponse.coupon?.points.toString()}",
                         style:
                             TextStyle(fontSize: displayHeight(context) * 0.025),
                       ),
