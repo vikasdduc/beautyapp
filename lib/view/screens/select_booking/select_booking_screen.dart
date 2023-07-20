@@ -101,6 +101,9 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                 } else if (cartState is CartDataLoaded) {
                   String selectedDateTime =
                       cartState.cartData.bookingDateTime ?? "";
+                  final DateTime dateTime = DateTime.parse(selectedDateTime);
+                  final DateFormat formatter = DateFormat('HH:mm:ss');
+                  final timeSlot = formatter.format(dateTime);
                   return FutureBuilder<BookingSlotModel?>(
                     future: _future,
                     builder: (context, snapshot) {
@@ -116,8 +119,8 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                         List<Status> slotArray = bookingSlotsData.status ?? [];
                         return GridView.builder(
                             gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1.5,
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 1.5,
                               crossAxisCount: 4,
                             ),
                             itemCount: slotArray.length,
@@ -125,10 +128,24 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
                                 onTap: () {
+                                  final date =
+                                      DateTime.parse(slotArray[index].d!);
+                                  final DateFormat formatter =
+                                      DateFormat('HH:mm:ss');
                                   setState(() {
-                                  context.read<CartDataBloc>().add(
-                                  CartBookingSlotUpdate("${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse((slotArray[index].d) as String))}"));});},
-                                  child: selectedDateTime.toString() ==
+                                    context.read<CartDataBloc>().add(
+                                        CartBookingSlotUpdate(formatter
+                                            .parseStrict(
+                                                slotArray[index].otherDate!)
+                                            .copyWith(
+                                              year: date.year,
+                                              month: date.month,
+                                              day: date.day,
+                                            )
+                                            .toString()));
+                                  });
+                                },
+                                child: timeSlot ==
                                         "${(slotArray[index].otherDate)}"
                                     ? Card(
                                         color: const Color(0xFFae65ff),

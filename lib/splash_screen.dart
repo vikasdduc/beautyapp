@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ? AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,
                 // child: VideoPlayer(_controller),
-                child: Image(image: AssetImage("assets/images/splash.gif")),
+                child: VideoPlayer(_controller),
               )
             : Image.asset("assets/images/app_icon.png"),
       ),

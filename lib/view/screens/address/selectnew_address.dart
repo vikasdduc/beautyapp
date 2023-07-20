@@ -73,6 +73,8 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
       ),
       body: OpenStreetMapSearchAndPick(
         center: currentLocation,
+        locationPinIconColor: const Color(0xFFA854FC),
+        buttonColor: const Color(0xFFA854FC),
         onPicked: (pickedData) {
           setState(() {
             widget.addressDetails.address = pickedData.address;
