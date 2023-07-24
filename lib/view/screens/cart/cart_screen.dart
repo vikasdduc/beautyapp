@@ -284,8 +284,8 @@ class _CartScreenState extends State<CartScreen> {
                                                       null) {
                                                     // Navigator.pushNamed(
                                                     //     context, '/payment');
-                                                    Navigator.pushNamed(
-                                                        context, '/addons');
+                                                    Navigator.pushNamed(context,
+                                                        '/booking-data');
                                                   } else {
                                                     ScaffoldMessenger.of(
                                                             context)

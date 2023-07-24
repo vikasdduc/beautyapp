@@ -113,13 +113,13 @@ class BottomServiceBar extends StatelessWidget {
                                                         .originalAmount! >=
                                                     cartState
                                                         .cartData.mincheck!) {
-                                                  // Navigator.pushNamed(
-                                                  //     context, '/addons');
-                                                  Navigator.push(
-                                                      context,
-                                                      CupertinoPageRoute(
-                                                          builder: (context) =>
-                                                              CartScreen()));
+                                                  Navigator.pushNamed(
+                                                      context, '/addons');
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     CupertinoPageRoute(
+                                                  //         builder: (context) =>
+                                                  //             CartScreen()));
                                                   // if (primaryAddressDetails !=
                                                   //     null) {
                                                   //   Navigator.pushNamed(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glamcode/data/api/api_helper.dart';
@@ -9,6 +10,7 @@ import '../../../blocs/cart_data/cart_data_bloc.dart';
 import '../../../data/model/addon_model/addon_model.dart';
 import '../../../util/dimensions.dart';
 import '../../base/loading_screen.dart';
+import '../cart/cart_screen.dart';
 
 class AddonsScreen extends StatefulWidget {
   const AddonsScreen({Key? key}) : super(key: key);
@@ -148,8 +150,11 @@ class _AddonsScreenState extends State<AddonsScreen> {
                             textStyle: TextStyle(
                                 fontSize: Dimensions.fontSizeExtraLarge)),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/booking-data');
-                          // Navigator.pushNamed(context, '/booking-data');
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => const CartScreen()));
+                         
                         },
                         child: const Text("Next")),
                   ))
