@@ -77,7 +77,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         buttonColor: const Color(0xFFA854FC),
         onPicked: (pickedData) {
           setState(() {
-            widget.addressDetails.address = pickedData.address;
+            widget.addressDetails.address = pickedData.addressName;
             widget.addressDetails.lattitude = pickedData.latLong.latitude;
             widget.addressDetails.longitude = pickedData.latLong.longitude;
           });
@@ -91,8 +91,8 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => NewAddressScreen(
-                address: pickedData.address,
-                locAddress: pickedData.address,
+                address: pickedData.addressName,
+                locAddress: pickedData.addressName,
                 latitude: pickedData.latLong.latitude,
                 longitude: pickedData.latLong.latitude,
               ),

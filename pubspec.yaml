@@ -59,7 +59,7 @@ dependencies:
     path: 'clone_libs/app_version_checker'
   flutter_launcher_icons: ^0.13.1
   change_app_package_name: ^1.1.0
-  open_street_map_search_and_pick: ^0.0.17
+  open_street_map_search_and_pick: ^0.1.0
   # google_maps_place_picker_mb: ^3.0.2
   # flutter_html: ^0.8.2
 

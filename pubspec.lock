@@ -978,10 +978,10 @@ packages:
     dependency: "direct main"
     description:
       name: open_street_map_search_and_pick
-      sha256: d273ea5cca71870946ff43f8787bead40959f158dcc1313018923e924d8cc3a7
+      sha256: bb6d7c9e137caffa8d5e63f8c212b8f589307b5e08cdeba0058f1495cf31e799
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.17"
+    version: "0.1.0"
   os_detect:
     dependency: transitive
     description:
