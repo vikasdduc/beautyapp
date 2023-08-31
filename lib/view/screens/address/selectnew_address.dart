@@ -56,11 +56,17 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    final p = await Geolocator.getLastKnownPosition();
+    Position? p;
+    try {
+      p = await Geolocator.getCurrentPosition();
+    } catch (e) {
+      p = await Geolocator.getLastKnownPosition();
+    }
+
     if (p == null) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
-        currentLocation = LatLong(p.latitude, p.longitude);
+        currentLocation = LatLong(p!.latitude, p.longitude);
       });
     });
   }
@@ -72,7 +78,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         title: Text("Map Screen"),
       ),
       body: OpenStreetMapSearchAndPick(
-        center: currentLocation ,
+        center: currentLocation,
         locationPinIconColor: const Color(0xFFA854FC),
         buttonColor: const Color(0xFFA854FC),
         onPicked: (pickedData) {
