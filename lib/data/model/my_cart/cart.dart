@@ -6,6 +6,14 @@ class Cart extends Equatable {
 
   final Map<ServicePackage, int> items;
 
+  int getTotalQuantity() {
+    int total = 0;
+    for (var v in items.entries) {
+      total += v.value;
+    }
+    return total;
+  }
+
   @override
   List<Object> get props => [items];
 }

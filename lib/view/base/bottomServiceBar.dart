@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glamcode/screen_size.dart';
-import 'package:glamcode/view/screens/cart/cart_screen.dart';
 
 import '../../blocs/cart/cart_bloc.dart';
 import '../../blocs/cart_data/cart_data_bloc.dart';
@@ -68,7 +66,7 @@ class BottomServiceBar extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${state.cart.items.length} items(s) | ₹${cartState.cartData.originalAmount}",
+                                      "${state.cart.getTotalQuantity()} items(s) | ₹${cartState.cartData.originalAmount}",
                                       style: TextStyle(
                                           // color: Color(0xFF882EDF),
                                           color: Colors.white,
