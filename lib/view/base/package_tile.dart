@@ -162,14 +162,17 @@ class PackageTile extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Text(
-                            "Services :-",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: Dimensions.fontSizeLarge,
-                                overflow: TextOverflow.fade),
-                          ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Text(
+                          //   "Services :-",
+                          //   style: TextStyle(
+                          //       color: Colors.black,
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: Dimensions.fontSizeLarge,
+                          //       overflow: TextOverflow.fade),
+                          // ),
                         ],
                       ),
                     ),
@@ -179,21 +182,27 @@ class PackageTile extends StatelessWidget {
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(
-                              Dimensions.PADDING_SIZE_SMALL),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            clipBehavior: Clip.hardEdge,
-                            child: Hero(
-                              tag: servicePackage.slug ?? "",
-                              child: Image.network(
-                                  servicePackage.serviceImageUrl ?? ""),
+                        Container(
+                          height: 140,
+                          width: 130,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            // padding: const EdgeInsets.all(
+                            //     Dimensions.PADDING_SIZE_SMALL),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              // clipBehavior: Clip.hardEdge,
+                              child: Hero(
+                                tag: servicePackage.slug ?? "",
+                                child: Image.network(
+                                    servicePackage.serviceImageUrl ?? ""),
+                              ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 1),
+                          padding: const EdgeInsets.only(top: 100),
                           child: CartCounter(
                             servicePackage: servicePackage,
                           ),
@@ -203,26 +212,35 @@ class PackageTile extends StatelessWidget {
                   ),
                 ],
               ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: const Divider(
+                  color: Colors.grey,
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        convertHtmlToString(servicePackage.description ?? "")
-                            .map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.all(
-                                  Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          convertHtmlToString(servicePackage.description ?? "")
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.all(
+                                    Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                                  ),
+                                  child: Text(
+                                    "\u2022 $e",
+                                  ),
                                 ),
-                                child: Text(
-                                  "\u2022 $e",
-                                ),
-                              ),
-                            )
-                            .toList(),
+                              )
+                              .toList(),
+                    ),
                   ),
                 ),
               ),
@@ -233,10 +251,9 @@ class PackageTile extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: OutlinedButton(
                     style: ButtonStyle(
-                      
                         splashFactory: InkRipple.splashFactory,
                         backgroundColor: MaterialStateProperty.all(
-                          const Color(0xFF882EDF),
+                          Colors.white,
                         )),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -247,7 +264,7 @@ class PackageTile extends StatelessWidget {
                     child: Text(
                       "View Details",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: const Color(0xFF882EDF),
                           fontSize: Dimensions.fontSizeLarge),
                     ),
                   ),

@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>32518278088-epkalhruefeflcssd8incu7531vpqbk8.apps.googleusercontent.com</string>
+	<string>330510953363-au8tg1oiheusq0k1bfvtas5m3j7i2qme.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.32518278088-epkalhruefeflcssd8incu7531vpqbk8</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>32518278088-5dg337nhqaf9salnj6o43k78j1fujr2i.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.330510953363-au8tg1oiheusq0k1bfvtas5m3j7i2qme</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD9hZsKyj6zbXdOJN0ZEOKfj3dXNPyvfDU</string>
+	<string>AIzaSyC_ofeZxIuW0nboATXxeUgiKtMBKNOyl5Q</string>
 	<key>GCM_SENDER_ID</key>
-	<string>32518278088</string>
+	<string>330510953363</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>in.glamcode.app</string>
+	<string>com.glamcode.app</string>
 	<key>PROJECT_ID</key>
-	<string>glamcodeflutter</string>
+	<string>glamcode---ga4-a24f8</string>
 	<key>STORAGE_BUCKET</key>
-	<string>glamcodeflutter.appspot.com</string>
+	<string>glamcode---ga4-a24f8.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:32518278088:ios:c32349fa85c378c4308efd</string>
+	<string>1:330510953363:ios:59b2f6361ab776a0511666</string>
 </dict>
 </plist>

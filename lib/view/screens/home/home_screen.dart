@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:glamcode/controller/location_controller.dart';
 import 'package:glamcode/data/model/user.dart';
 import 'package:glamcode/data/model/useraddressmodel.dart';
@@ -7,6 +8,7 @@ import 'package:glamcode/screen_size.dart';
 import 'package:glamcode/view/screens/gallery/http_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:glamcode/view/screens/home/search_srceen.dart';
+import 'package:glamcode/view/screens/location/location_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:glamcode/data/model/home_page.dart';
 import 'package:glamcode/util/dimensions.dart';
@@ -31,6 +33,7 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
 class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
   final searchController = TextEditingController();
@@ -86,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen>
       throw Exception('Failed to load product');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Auth.instance.currentUser;
@@ -130,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen>
                               title: Align(
                                 alignment: Alignment.topLeft,
                                 // ignore: unnecessary_null_comparison
-
                                 child: Text(
                                   userAddressModels!.address?.toString() ??
                                       BlocProvider.of<LocationController>(
@@ -149,7 +152,13 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                               titleSpacing: 0,
                               leading: InkWell(
-                                onTap: () async {},
+                                onTap: () async {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SelectLocationScreen()));
+                                },
                                 child: const Icon(Icons.location_on_rounded),
                               ),
                               actions: [
@@ -210,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.all(
-                                                            8.0),
+                                                            5.0),
                                                     child: Container(
                                                         decoration: BoxDecoration(
                                                             borderRadius:
@@ -224,14 +233,14 @@ class _HomeScreenState extends State<HomeScreen>
                                                             context),
                                                         child: const Padding(
                                                           padding:
-                                                              EdgeInsets
-                                                                  .all(5.0),
+                                                              EdgeInsets.all(
+                                                                  8.0),
                                                           child: Row(
                                                             children: [
                                                               Icon(
                                                                   Icons.search),
                                                               Text(
-                                                                  "       Search here......")
+                                                                  "       Search here...")
                                                             ],
                                                           ),
                                                         )),
@@ -255,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen>
                                               //     ),
                                               //   ),
                                               // ),
-                                          ),
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -289,10 +298,7 @@ class _HomeScreenState extends State<HomeScreen>
                           ],
                         ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-                  child: BottomServiceBar(),
-                )
+                const BottomServiceBar()
               ],
             );
           } else {

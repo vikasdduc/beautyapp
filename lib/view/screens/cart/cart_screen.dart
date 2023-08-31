@@ -38,6 +38,10 @@ class _CartScreenState extends State<CartScreen> {
   late CheckForAuth checkForAuth;
   User? currentUser;
 
+  //For only to hide Bottom Service bar
+  final ScrollController scrollController = new ScrollController();
+  bool scroll_visibility = true;
+
   initialize() async {
     final Auth auth = Auth.instance;
     currentUser = await auth.currentUser;
@@ -53,6 +57,21 @@ class _CartScreenState extends State<CartScreen> {
     context.read<CartDataBloc>().add(CartDataUpdate());
     _future = DioClient.instance.getAddress();
     super.initState();
+
+    //Hiding bottom servicebar
+    scrollController.addListener(() {
+      if (scrollController.position.pixels > 0 ||
+          scrollController.position.pixels <
+              scrollController.position.maxScrollExtent) {
+        scroll_visibility = false;
+      } else {
+        scroll_visibility = true;
+        setState(() {
+          
+        });
+      }
+    });
+    //End scroll Controller
   }
 
   @override

@@ -24,15 +24,16 @@ class DashboardScreen extends StatefulWidget {
   @override
   DashboardScreenState createState() => DashboardScreenState();
 }
+
 class DashboardScreenState extends State<DashboardScreen> {
   late PageController _pageController;
   int _pageIndex = 0;
-  late final List<Widget>  _screens = const [
+  late final List<Widget> _screens = const [
     HomeScreen(),
     WalletScreen(),
     // GalleryScreen(),
     MyBookingScreen(),
-    NotificationScreen(),
+    // NotificationScreen(),
     ProfileScreen(),
   ];
   late List<String> _titles;
@@ -42,43 +43,41 @@ class DashboardScreenState extends State<DashboardScreen> {
   late SharedPreferences prefs;
   late bool isCitySelected;
 
-
   @override
   void initState() {
     super.initState();
     final checker = AppVersionChecker();
     checker.checkUpdate();
-  //.then((value) {
-  //     if (value.canUpdate) {
-  //     WidgetsBinding.instance.addPostFrameCallback((_) async {
-  //       showDialog(
-  //         context: context,
-  //         builder: (BuildContext context) {
-  //           return AlertDialog(
-  //             title: const Text("Update App"),
-  //             content: const Text(" Download the latest version!!"),
-  //             actions: [
-  //               ElevatedButton(
-  //                   onPressed: () {
-  //                     LaunchReview.launch(
-  //                         androidAppId: 'in.glamcode.app',
-  //                         iOSAppId: 'in.glamcode.app');
-  //                   },
-  //                   child: const Text("Update"))
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     });
-  //   }
-  // });
+    //.then((value) {
+    //     if (value.canUpdate) {
+    //     WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //       showDialog(
+    //         context: context,
+    //         builder: (BuildContext context) {
+    //           return AlertDialog(
+    //             title: const Text("Update App"),
+    //             content: const Text(" Download the latest version!!"),
+    //             actions: [
+    //               ElevatedButton(
+    //                   onPressed: () {
+    //                     LaunchReview.launch(
+    //                         androidAppId: 'in.glamcode.app',
+    //                         iOSAppId: 'in.glamcode.app');
+    //                   },
+    //                   child: const Text("Update"))
+    //             ],
+    //           );
+    //         },
+    //       );
+    //     });
+    //   }
+    // });
 
     //new_version checks
     // final newVersion = NewVersion();
     // newVersion.showAlertIfNecessary(context: context);
 
     // checkversion();
-    
 
     _pageIndex = widget.pageIndex;
 
@@ -88,16 +87,18 @@ class DashboardScreenState extends State<DashboardScreen> {
       "GLAM CODE",
       "Wallet",
       "My Bookings",
-      "Notifications",
+      // "Notifications",
       "Profile"
     ];
 
     bottomNavbarList = [
-      bottomNavItem(context, Icons.home_filled, "Home"),
-      bottomNavItem(context, Icons.wallet, "Wallet"),
-      bottomNavItem(context, Icons.shopping_bag, "Bookings"),
-      bottomNavItem(context, Icons.notifications, "Notifications"),
-      bottomNavItem(context, Icons.person, "Profile")
+      bottomNavItem(context, Icons.home_filled, "Home",),
+      bottomNavItem(context, Icons.wallet, "Wallet",
+  ),
+      bottomNavItem(context, Icons.shopping_bag, "Bookings",
+     ),
+      // bottomNavItem(context, Icons.notifications, "Notifications"),
+      bottomNavItem(context, Icons.person, "Profile",)
     ];
 
     if (Platform.isAndroid || Platform.isIOS) {
@@ -149,23 +150,24 @@ class DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
                 backgroundColor: Colors.white,
-                // actions: [
-                //   GestureDetector(
-                //     onTap: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => const SearchBarScreen()));
-                //     },
-                //     child: const Padding(
-                //       padding: EdgeInsets.only(right: 10),
-                //       child: Icon(
-                //         Icons.wallet,
-                //         color: Colors.black,
-                //       ),
-                //     ),
-                //   )
-                // ],
+                actions: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const NotificationScreen()));
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Icon(
+                        Icons.notifications_active_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                ],
               ),
               key: _scaffoldKey,
               bottomNavigationBar: ResponsiveHelper.isDesktop(context)

@@ -34,7 +34,6 @@ class DioClient {
   final _baseUrl = 'https://admin.glamcode.in/api';
   final CookieJar cookieJar = CookieJar();
   final Auth auth = Auth.instance;
-
   static final instance = DioClient();
 
   DioClient() {

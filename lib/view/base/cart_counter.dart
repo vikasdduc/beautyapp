@@ -32,15 +32,16 @@ class _CartCounterState extends State<CartCounter> {
           return (state.cart.items.containsKey(widget.servicePackage) == false)
               ? SizedBox(
                   child: Container(
-                    width: 110,
+                    width: 70,
+                    height: 30,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
+                        // border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(5),
                         color: const Color(0xFFA854FC),
                         boxShadow: const [
                           BoxShadow(
                             color: Color.fromRGBO(50, 50, 93, 0.25),
-                            spreadRadius: -2,
+                            spreadRadius: -3,
                             blurRadius: 10,
                             offset: Offset(0, 5),
                           ),
@@ -59,7 +60,7 @@ class _CartCounterState extends State<CartCounter> {
                           ),
                           splashFactory: InkRipple.splashFactory,
                           backgroundColor: MaterialStateProperty.all(
-                            const Color(0xFF882EDF),
+                            Colors.white,
                           )),
                       onPressed: () {
                         setState(() {
@@ -71,7 +72,7 @@ class _CartCounterState extends State<CartCounter> {
                       child: Text(
                         "ADD",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: const Color(0xFF882EDF),
                             fontSize: Dimensions.fontSizeLarge),
                       ),
                     ),
@@ -79,9 +80,10 @@ class _CartCounterState extends State<CartCounter> {
                 )
               : Container(
                   width: 110,
+                  height: 40,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(30),
                       color: Colors.white,
                       boxShadow: const [
                         BoxShadow(

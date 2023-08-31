@@ -72,7 +72,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         title: Text("Map Screen"),
       ),
       body: OpenStreetMapSearchAndPick(
-        center: currentLocation,
+        center: currentLocation ,
         locationPinIconColor: const Color(0xFFA854FC),
         buttonColor: const Color(0xFFA854FC),
         onPicked: (pickedData) {

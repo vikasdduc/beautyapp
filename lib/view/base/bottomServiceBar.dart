@@ -21,7 +21,10 @@ class BottomServiceBar extends StatelessWidget {
               return state.cart.items.isEmpty
                   ? const SizedBox()
                   : ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      // borderRadius: BorderRadius.circular(20),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -31,7 +34,7 @@ class BottomServiceBar extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: Dimensions.PADDING_SIZE_DEFAULT,
                                 vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            color: const Color(0xFF882EDF),
+                            color: Color(0xFF882EDF),
                             child: Text(
                               cartState.cartData.originalAmount! <
                                       (cartState.cartData.mincheck ?? 0)
@@ -51,6 +54,8 @@ class BottomServiceBar extends StatelessWidget {
                             ),
                           ),
                           Container(
+                            // color: const Color(0xFFFFF1F1),
+
                             color: const Color(0xFFAF73E9),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: Dimensions.PADDING_SIZE_DEFAULT,
@@ -65,9 +70,11 @@ class BottomServiceBar extends StatelessWidget {
                                     Text(
                                       "${state.cart.items.length} items(s) | ₹${cartState.cartData.originalAmount}",
                                       style: TextStyle(
+                                          // color: Color(0xFF882EDF),
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: Dimensions.fontSizeLarge),
+                                          fontSize:
+                                              Dimensions.fontSizeExtraLarge),
                                     ),
                                     // Text(
                                     //   "Extra charges may apply.",
@@ -154,15 +161,17 @@ class BottomServiceBar extends StatelessWidget {
                                             style: ElevatedButton.styleFrom(
                                               foregroundColor: Colors.white,
                                               backgroundColor:
+                                                  // Color.fromARGB(255, 7, 0, 0),
                                                   const Color(0xFF882EDF),
                                               animationDuration: const Duration(
                                                   milliseconds: 1000),
                                               shadowColor:
+                                                  // const Color(0xFFFFF1F1),
                                                   const Color(0xFFAF73E9),
                                               elevation: 10,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(15),
+                                                    BorderRadius.circular(10),
                                               ),
                                             ),
                                             child: const Text(
