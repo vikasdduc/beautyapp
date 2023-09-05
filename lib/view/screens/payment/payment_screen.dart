@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glamcode/data/model/auth.dart';
 import 'package:glamcode/data/repository/payment_repository.dart';
+import 'package:glamcode/util/click_throttle.dart';
 import 'package:glamcode/view/base/error_screen.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -24,6 +25,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   int _selectedOption = -1;
   late Razorpay razorpay;
   PaymentRepository paymentRepository = PaymentRepository();
+  ClickThrottle clickThrottle = ClickThrottle();
   bool loading = false;
 
   @override
@@ -180,6 +182,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         fontSize:
                                             Dimensions.fontSizeExtraLarge)),
                                 onPressed: () async {
+                                  if (!clickThrottle.shouldProcessClick()) {
+                                    return;
+                                  }
                                   if (_selectedOption == 1) {
                                     setState(() {
                                       loading = true;
