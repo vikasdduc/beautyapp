@@ -63,7 +63,10 @@ class _PackagesScreenState extends State<PackagesScreen>
 
             List<Widget> tabTitles = [];
             for (var e in packagesCategory) {
-              tabTitles.add(Text(e.name ?? ""));
+              tabTitles.add(Text(
+                e.name ?? "",
+                style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+              ));
             }
 
             _tabController =
@@ -89,7 +92,7 @@ class _PackagesScreenState extends State<PackagesScreen>
                 bottom: TabBar(
                   enableFeedback: true,
                   controller: _tabController,
-                  labelColor: Colors.white,
+                  labelColor: const Color(0xFFAB54FC),
                   padding:
                       const EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                   labelPadding:
@@ -98,7 +101,7 @@ class _PackagesScreenState extends State<PackagesScreen>
                   isScrollable: true,
                   indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: const Color(0xFFAB54FC)),
+                      color: Color.fromARGB(0, 255, 255, 255)),
                   tabs: tabTitles,
                   onTap: (int index) {
                     _pageController.jumpToPage(index);

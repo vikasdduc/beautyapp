@@ -29,42 +29,49 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
         ModalRoute.of(context)!.settings.arguments as PaymentResponseModel;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 249, 227, 235),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("Payment Confirmations"),
-      ),
+      // backgroundColor: const Color.fromARGB(255, 249, 227, 235),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255), // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   title: const Text("Payment Confirmations"),
+      // ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          SizedBox(
+            height: 200,
+          ),
           Card(
-            color: const Color.fromARGB(255, 217, 162, 226),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    'assets/images/verifys.png',
-                    fit: BoxFit.fill,
-                    height: MediaQuery.of(context).size.height * 0.1,
+            elevation: 0,
+            // color: const Color.fromARGB(255, 217, 162, 226),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'assets/images/verifys.png',
+                      fit: BoxFit.fill,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "Congratulations",
-                      style: TextStyle(
-                          fontSize: displayHeight(context) * 0.03,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "Your Booking is confirmed",
-                      style:
-                          TextStyle(fontSize: displayHeight(context) * 0.025),
-                    ),
-                  ],
-                ),
-              ],
+                  Column(
+                    children: [
+                      Text(
+                        "Congratulations",
+                        style: TextStyle(
+                            fontSize: displayHeight(context) * 0.03,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        "Your Booking is Confirmed",
+                        style:
+                            TextStyle(fontSize: displayHeight(context) * 0.025),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           if (bookingResponse.coupon != null) ...[
