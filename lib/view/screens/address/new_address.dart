@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glamcode/data/api/api_helper.dart';
 import 'package:glamcode/data/model/address_details_model.dart';
@@ -88,7 +89,8 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                       Padding(
                         padding: const EdgeInsets.all(
                             Dimensions.PADDING_SIZE_DEFAULT),
-                        child: TextButton(
+                        child: CupertinoButton(
+                          color: const Color(0xFFA854FC),
                           onPressed: () {
                             setState(() {
                               loading = true;

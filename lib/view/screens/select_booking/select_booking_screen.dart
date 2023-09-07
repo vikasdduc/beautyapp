@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -209,15 +210,16 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                       child: Padding(
                     padding:
                         const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                    child: TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: const Color(0xFFA854FC),
-                            minimumSize: const Size(double.infinity,
-                                Dimensions.PADDING_SIZE_DEFAULT),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: Dimensions.PADDING_SIZE_DEFAULT),
-                            textStyle: TextStyle(
-                                fontSize: Dimensions.fontSizeExtraLarge)),
+                    child: CupertinoButton( //TextButton
+                        color: const Color(0xFFA854FC),
+                        // style: TextButton.styleFrom(
+                        //     backgroundColor: const Color(0xFFA854FC),
+                        //     minimumSize: const Size(double.infinity,
+                        //         Dimensions.PADDING_SIZE_DEFAULT),
+                        //     padding: const EdgeInsets.symmetric(
+                        //         vertical: Dimensions.PADDING_SIZE_DEFAULT),
+                        //     textStyle: TextStyle(
+                        //         fontSize: Dimensions.fontSizeExtraLarge)),
                         onPressed: () {
                           if (cartState.cartData.bookingDateTime != null &&
                               cartState.cartData.bookingDateTime != "") {

@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glamcode/data/api/api_helper.dart';
@@ -31,117 +34,187 @@ class _CouponScreenState extends State<CouponScreen> {
   ) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Apply Coupons"),
+          elevation: 0,
+          title: const Text(" Coupons for you"),
         ),
-        body: FutureBuilder<Coupons?>(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const LoadingScreen();
-            } else if (snapshot.connectionState == ConnectionState.done) {
-              Coupons couponData = const Coupons();
-              if (snapshot.hasData) {
-                couponData = snapshot.data!;
-                List<CouponData> couponsList = couponData.couponData ?? [];
-                return BlocBuilder<CartDataBloc, CartDataState>(
-                  builder: (context, state) {
-                    if (state is CartDataLoading) {
-                      return const LoadingScreen();
-                    } else if (state is CartDataLoaded) {
-                      return ListView.builder(
-                          itemCount: couponsList.length,
-                          itemBuilder: (context, index) {
-                            bool isApplied;
-                            //
-                            isApplied = state.cartData.amountToPay! >=
-                            couponsList[index]
-                            .minimumPurchaseAmount!
-                            .round();
-                            //
-                            isApplied = state.cartData.couponId ==
-                                couponsList[index].id;
-                            return couponsTile(
-                                couponsList[index], isApplied, context, state);
-                          });
+        body: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "B E S T  O F F E R S  F O R  Y O U",
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            Expanded(
+              child: FutureBuilder<Coupons?>(
+                future: _future,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const LoadingScreen();
+                  } else if (snapshot.connectionState == ConnectionState.done) {
+                    Coupons couponData = const Coupons();
+                    if (snapshot.hasData) {
+                      couponData = snapshot.data!;
+                      List<CouponData> couponsList =
+                          couponData.couponData ?? [];
+                      return BlocBuilder<CartDataBloc, CartDataState>(
+                        builder: (context, state) {
+                          if (state is CartDataLoading) {
+                            return const LoadingScreen();
+                          } else if (state is CartDataLoaded) {
+                            return ListView.builder(
+                                itemCount: couponsList.length,
+                                itemBuilder: (context, index) {
+                                  bool isApplied;
+                                  //
+                                  isApplied = state.cartData.amountToPay! >=
+                                      couponsList[index]
+                                          .minimumPurchaseAmount!
+                                          .round();
+                                  //
+                                  isApplied = state.cartData.couponId ==
+                                      couponsList[index].id;
+                                  return couponsTile(couponsList[index],
+                                      isApplied, context, state);
+                                });
+                          } else {
+                            return const CustomError();
+                          }
+                        },
+                      );
                     } else {
                       return const CustomError();
                     }
-                  },
-                );
-              } else {
-                return const CustomError();
-              }
-            } else {
-              return const CustomError();
-            }
-          },
+                  } else {
+                    return const CustomError();
+                  }
+                },
+              ),
+            ),
+          ],
         ));
   }
-}
+} 
 
 Widget couponsTile(CouponData couponData, bool isApplied, BuildContext context,
     CartDataLoaded state) {
-  return Container(
-    color: Colors.white,
-    padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+  return Padding(
+    padding: const EdgeInsets.only(top: 30, right: 10, left: 10),
+    child: Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            couponsTileText("Coupon  ", couponData.title.toString()),
-            couponsTileText(
-                "Discount  ",
-                couponData.percent == 0
-                    ? "Rs ${couponData.amount}" " off"
-                    : "${couponData.percent}%" " off"),
-            couponsTileText("Minimum Purchase Amount ",
-                "Rs ${couponData.minimumPurchaseAmount}"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  // couponsTileText("Discount", couponData.title.toString()),
+
+                  // couponsTileText(
+                  //     "Discount  ",
+                  //     couponData.percent == 0
+                  //         ? "Rs ${couponData.amount}" " off"
+                  //         : "${couponData.percent}%" " off"),
+                  Text(
+                    couponData.percent == 0
+                        ? "Rs ${couponData.amount}" " off"
+                        : "${couponData.percent}%" " off",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "  Minimum Purchase Amount ₹${couponData.minimumPurchaseAmount}",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 3, 63, 154),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(width: 1, color: Colors.black12)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "${couponData.title.toString().toUpperCase()}",
+                      style:
+                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Divider(),
+            SizedBox(
+              height: 52,
+              child: Center(
+                child: CupertinoButton(
+                  // style: isApplied
+                  //     ? ButtonStyle(
+                  //         backgroundColor:
+                  //             MaterialStateProperty.all(Colors.green))
+                  //     : ButtonStyle(
+                  //         backgroundColor: MaterialStateProperty.all(
+                  //             Color.fromARGB(255, 127, 3, 149))),
+                  onPressed: isApplied
+                      ? () {
+                          CouponRepository.instance.clearCouponInstance();
+                          // context.read<CartDataBloc>().add(CartDataUpdate());
+                          Future.delayed(const Duration(seconds: 1), () {
+                            context.read<CartDataBloc>().add(CartDataUpdate());
+                          }).then((value) => Navigator.pop(context));
+                        }
+                      : () {
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) => const CartScreen()));
+                          context
+                              .read<CartDataBloc>()
+                              .add(CartCouponUpdate(couponData));
+                          Future.delayed(const Duration(seconds: 1), () {
+                            context.read<CartDataBloc>().add(CartDataUpdate());
+                          }).then((value) => Navigator.pop(context));
+                        },
+                  child: isApplied
+                      ? Text(
+                          "✅  A P P L I E D",
+                          style: TextStyle(
+                              fontSize: Dimensions.fontSizeExtraLarge,
+                              color: Colors.green,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold),
+                        )
+                      : Text(
+                          "T A P  T O  A P P L Y ",
+                          style: TextStyle(
+                              fontSize: Dimensions.fontSizeExtraLarge,
+                              color: Color.fromARGB(255, 3, 63, 154),
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w500),
+                        ),
+                ),
+              ),
+            )
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE,
-              vertical: Dimensions.PADDING_SIZE_SMALL),
-          child: TextButton(
-            style: isApplied
-                ? ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green))
-                : const ButtonStyle(),
-            onPressed: isApplied
-                ? () {
-                    CouponRepository.instance.clearCouponInstance();
-                    // context.read<CartDataBloc>().add(CartDataUpdate());
-                    Future.delayed(const Duration(seconds: 1), () {
-                      context.read<CartDataBloc>().add(CartDataUpdate());
-                    }).then((value) => Navigator.pop(context));
-                  }
-                : () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => const CartScreen()));
-                    context
-                        .read<CartDataBloc>()
-                        .add(CartCouponUpdate(couponData));
-                    Future.delayed(const Duration(seconds: 1), () {
-                      context.read<CartDataBloc>().add(CartDataUpdate());
-                    }).then((value) => Navigator.pop(context));
-                  },
-            child: isApplied
-                ? Text(
-                    "Tap to remove",
-                    style: TextStyle(
-                        fontSize: Dimensions.fontSizeLarge,
-                        color: Colors.white),
-                  )
-                : Text(
-                    "Apply ${couponData.title.toString()}",
-                    style: TextStyle(fontSize: Dimensions.fontSizeLarge),
-                  ),
-          ),
-        )
-      ],
+      ),
     ),
   );
 }
