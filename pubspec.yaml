@@ -47,7 +47,7 @@ dependencies:
   flutter_svg: ^1.1.6
   share_plus:
   upgrader:
-  scratcher: "^2.3.0"
+  scratcher: ^2.3.0
   confetti: ^0.7.0
   geolocator: ^9.0.2
   new_version:

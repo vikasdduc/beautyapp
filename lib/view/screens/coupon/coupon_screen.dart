@@ -95,7 +95,7 @@ class _CouponScreenState extends State<CouponScreen> {
           ],
         ));
   }
-} 
+}
 
 Widget couponsTile(CouponData couponData, bool isApplied, BuildContext context,
     CartDataLoaded state) {
@@ -124,8 +124,8 @@ Widget couponsTile(CouponData couponData, bool isApplied, BuildContext context,
                   //         : "${couponData.percent}%" " off"),
                   Text(
                     couponData.percent == 0
-                        ? "Rs ${couponData.amount}" " off"
-                        : "${couponData.percent}%" " off",
+                        ? "Rs ${couponData.amount}" " OFF"
+                        : "${couponData.percent}%" " OFF",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(

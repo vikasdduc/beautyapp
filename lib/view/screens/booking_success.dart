@@ -1,9 +1,13 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glamcode/data/model/payments/PaymentResponse.dart';
 import 'package:glamcode/screen_size.dart';
+import 'package:glamcode/view/refertoearn/invitetoearn.dart';
+import 'package:glamcode/view/refertoearn/referalmodel.dart';
 import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
+import 'package:scratcher/widgets.dart';
 
 class BookingSuccessScreen extends StatefulWidget {
   const BookingSuccessScreen({Key? key}) : super(key: key);
@@ -38,8 +42,9 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: 200,
+            height: 100,
           ),
+
           Card(
             elevation: 0,
             // color: const Color.fromARGB(255, 217, 162, 226),
@@ -74,67 +79,124 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
               ),
             ),
           ),
+          const SizedBox(
+            height: 50,
+          ),
           if (bookingResponse.coupon != null) ...[
-            Card(
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      'assets/images/confirm1.png',
-                      fit: BoxFit.fill,
-                      height: MediaQuery.of(context).size.height * 0.1,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "Yay you just won a ${bookingResponse.coupon?.points.toString()}",
-                        style:
-                            TextStyle(fontSize: displayHeight(context) * 0.025),
-                      ),
-                      Text(
-                        "Scarch Card",
-                        style: TextStyle(
-                            fontSize: displayHeight(context) * 0.03,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                ],
+          Scratcher(
+            brushSize: 30,
+            threshold: 50,
+            color: Color.fromARGB(255, 16, 115, 255),
+            onChange: (value) => print("Scratch progress: $value%"),
+            onThreshold: () => print("Threshold reached, you won!"),
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadiusDirectional.circular(20),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 254, 127, 116),
+                    Color.fromARGB(255, 251, 5, 5)
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
+              child: Column(children: [
+                const SizedBox(
+                  height: 15,
+                ),
+                const Text(
+                  // "🎁",
+                  // "🎊",
+                  "🎉",
+                  style: TextStyle(
+                      fontSize: 70,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 255, 255, 0)),
+                ), //🎊🎁
+                const SizedBox(
+                  height: 15,
+                ),
+                const Text(
+                  "You've won",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                Text(
+                  "${bookingResponse.coupon?.points.toString()} points",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 250, 230, 10)),
+                )
+              ]),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const DashboardScreen(pageIndex: 1)),
-                      (route) => false);
-                },
-                child: _buildFlipAnimation(bookingResponse)),
-          ],
+          ),
+          // Card(
+          //   child: Row(
+          //     children: [
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Image.asset(
+          //           'assets/images/confirm1.png',
+          //           fit: BoxFit.fill,
+          //           height: MediaQuery.of(context).size.height * 0.1,
+          //         ),
+          //       ),
+          //       Column(
+          //         children: [
+          //           Text(
+          //             "Yay you just won a ${bookingResponse.coupon?.points.toString()}",
+          //             style:
+          //                 TextStyle(fontSize: displayHeight(context) * 0.025),
+          //           ),
+          //           Text(
+          //             "Scarch Card",
+          //             style: TextStyle(
+          //                 fontSize: displayHeight(context) * 0.03,
+          //                 fontWeight: FontWeight.w500),
+          //           ),
+          //         ],
+          //       ),
+              ],
+          //   ),
+          // ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          // GestureDetector(
+          //     onTap: () {
+          //       Navigator.pushAndRemoveUntil(
+          //           context,
+          //           MaterialPageRoute(
+          //               builder: (_) => const DashboardScreen(pageIndex: 1)),
+          //           (route) => false);
+          //     },
+          //     child: _buildFlipAnimation(bookingResponse)),
+          // ],
           const SizedBox(
             height: 20,
           ),
-          Card(
-              color: const Color.fromARGB(255, 217, 162, 226),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-                child: Text(
-                  "Refer & Earn",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: displayHeight(context) * 0.025),
-                ),
-              )),
-          const Text("Refer your Friend and Earn Cash"),
+          // Card(
+          //     elevation: 5,
+          //     color: Color.fromARGB(255, 255, 255, 255),
+          //     child: Padding(
+          //       padding:
+          //           const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+          //       child: Text(
+          //         "Refer & Earn",
+          //         style: TextStyle(
+          //             fontWeight: FontWeight.bold,
+          //             fontSize: displayHeight(context) * 0.025),
+          //       ),
+          //     )),
+
           const SizedBox(
-            height: 20,
+            height: 100,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -148,30 +210,62 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
                               const DashboardScreen(pageIndex: 0)),
                       (route) => false);
                 },
-                child: const Card(
-                    color: Color.fromARGB(255, 217, 162, 226),
+                child: Card(
+                    semanticContainer: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    color: Color.fromARGB(255, 250, 250, 250),
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("Home"),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                      child: Text("Done"),
                     )),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const DashboardScreen(pageIndex: 1)),
-                      (route) => false);
-                },
-                child: const Card(
-                    color: Color.fromARGB(255, 217, 162, 226),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(" OK "),
-                    )),
-              ),
+
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.pushAndRemoveUntil(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (_) => const DashboardScreen(pageIndex: 1)),
+              //         (route) => false);
+              //   },
+              //   child: const Card(
+              //       color: Color.fromARGB(255, 217, 162, 226),
+              //       child: Padding(
+              //         padding: EdgeInsets.all(8.0),
+              //         child: Text(" OK "),
+              //       )),
+              // ),
             ],
-          )
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+            child: Center(
+              child: Row(children: [
+                const Text(
+                  "Refer your friend and earn cash",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                CupertinoButton(
+                    child: Text(
+                      "Refer&Earn",
+                      style: TextStyle(fontSize: 15, color: Colors.purple),
+                    ),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const InviteToEarn()),
+                          (route) => false);
+                    }),
+              ]),
+            ),
+          ),
         ],
       ),
       // bottomNavigationBar: Container(

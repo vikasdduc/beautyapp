@@ -60,7 +60,6 @@ class _PackagesScreenState extends State<PackagesScreen>
           if (snapshot.hasData) {
             packagesModelData = snapshot.data!;
             packagesCategory = packagesModelData.categories ?? [];
-
             List<Widget> tabTitles = [];
             for (var e in packagesCategory) {
               tabTitles.add(Text(
@@ -68,7 +67,6 @@ class _PackagesScreenState extends State<PackagesScreen>
                 style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
               ));
             }
-
             _tabController =
                 TabController(length: tabTitles.length, vsync: this);
             return Scaffold(
@@ -85,7 +83,7 @@ class _PackagesScreenState extends State<PackagesScreen>
                 titleSpacing: 0,
                 backgroundColor: Colors.white,
                 title: Text(
-                  widget.mainCategoryName.toString(),
+                  "     ${widget.mainCategoryName.toString()}",
                   style: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
@@ -119,7 +117,7 @@ class _PackagesScreenState extends State<PackagesScreen>
                 },
               ),
               floatingActionButton: Padding(
-                padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+                padding: const EdgeInsets.all(20),
                 child: FloatingActionButton.extended(
                   onPressed: () {
                     showDialog(
@@ -130,7 +128,7 @@ class _PackagesScreenState extends State<PackagesScreen>
                                 Dimensions.PADDING_SIZE_DEFAULT),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    20.0)), //this right here
+                                    20)), //this right here
                             child: const SizedBox(child: ServicesGrid()),
                           );
                         });
