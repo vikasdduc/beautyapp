@@ -18,8 +18,8 @@ class PackageTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
           vertical: Dimensions.PADDING_SIZE_SMALL, horizontal: 10),
       child: Card(
-        elevation: 5,
-        shadowColor: const Color.fromARGB(255, 215, 108, 144),
+        elevation: 6,
+        shadowColor: Color.fromARGB(255, 255, 5, 255),
         borderOnForeground: true,
         margin: const EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

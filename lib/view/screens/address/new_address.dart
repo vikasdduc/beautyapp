@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glamcode/data/api/api_helper.dart';
 import 'package:glamcode/data/model/address_details_model.dart';
+import 'package:glamcode/home.dart';
 import 'package:glamcode/view/base/custom_text_field.dart';
 import 'package:glamcode/view/base/loading_screen.dart';
 import 'package:glamcode/view/screens/cart/cart_screen.dart';
+import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/model/auth.dart';
 import '../../../data/model/user.dart';
@@ -52,6 +55,13 @@ class _NewAddressScreenState extends State<NewAddressScreen>
     });
   }
 
+  late SharedPreferences prefs;
+  void savepref(String address) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString("AddressToShow", address);
+    setState(() {});
+  }
+
   final _newAddressFormKey = GlobalKey<FormState>();
 
   @override
@@ -77,7 +87,7 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                     children: [
                       customTextField(
                           "Name", nameController, TextInputType.text, null),
-                      customTextField("Address", addressController,
+                      customTextField("House no./ Flat no. ", addressController,
                           TextInputType.text, null),
                       customTextField(
                           "Location Address",
@@ -104,6 +114,7 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                                 longitude: widget.longitude,
                                 mobileNumber: currentUser.mobile,
                                 callingCode: currentUser.callingCode);
+                            savepref(address.address.toString());
                             if (_newAddressFormKey.currentState!.validate()) {
                               DioClient.instance
                                   .addAddress(address)
@@ -113,10 +124,17 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                                       .setPrimaryAddress(value)
                                       .then((value) {
                                     if (value) {
-                                      Navigator.of(context).pushAndRemoveUntil(
+                                      // Navigator.of(context).pushAndRemoveUntil(
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             const CartScreen()),
+                                      //     ModalRoute.withName('/index'));
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const CartScreen()),
+                                                  DashboardScreen(
+                                                      pageIndex: 0)),
                                           ModalRoute.withName('/index'));
                                     } else {
                                       ScaffoldMessenger.of(context)

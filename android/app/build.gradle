@@ -59,8 +59,8 @@ android {
         applicationId "com.glamcode.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 20
+        targetSdkVersion 30
         versionCode 16002
         versionName flutterVersionName
         multiDexEnabled true

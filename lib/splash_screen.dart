@@ -17,13 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     startTime();
-    _controller = VideoPlayerController.asset('assets/images/splash.mp4')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _controller.play();
-        });
-      });
+    // _controller = VideoPlayerController.asset('assets/images/splash.mp4')
+    //   ..initialize().then((_) {
+    //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+    //     setState(() {
+    //       _controller.play();
+    //     });
+    // });
   }
 
   @override
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   startTime() async {
-    var duration = const Duration(seconds: 4);
+    var duration = const Duration(seconds: 3);
     return Timer(duration, route);
   }
 
@@ -50,16 +50,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   initScreen(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                // child: VideoPlayer(_controller),
-                child: VideoPlayer(_controller),
-              )
-            : Image.asset("assets/images/app_icon.png"),
-      ),
-    );
+        backgroundColor: Colors.black,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("assets/images/splash.png"))),
+        )
+        // child: Image.asset("assets/images/splash.png")),
+        );
   }
 }

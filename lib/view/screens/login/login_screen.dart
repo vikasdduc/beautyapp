@@ -39,9 +39,19 @@ class _LoginPageState extends State<LoginPage> {
                       SafeArea(
                           child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          "assets/images/loginLogo.png",
-                          height: MediaQuery.of(context).size.width * 0.2,
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/loginLogo.png",
+                              height: MediaQuery.of(context).size.width * 0.2,
+                            ),
+                            const SizedBox(
+                              width: 100,
+                            ),
+                            // Align(
+                            //     alignment: Alignment.topRight,
+                            //     child: Text("Skip>>"))
+                          ],
                         ),
                       ))
                     ],
@@ -191,20 +201,6 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 )
                               : Container(),
-                          CupertinoButton(
-                              child: Text("Skip for now!!"),
-                              onPressed: () {
-                                // Navigator.pushReplacement(
-                                //     context,
-                                // CupertinoPageRoute(
-                                //     builder: (context) =>
-                                //         DashboardScreen(pageIndex: 0)));
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            SelectLocationScreen()));
-                              })
                         ],
                       ),
                     ),

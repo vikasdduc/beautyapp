@@ -19,22 +19,23 @@ class _PackagesState extends State<Packages> {
   @override
   void initState() {
     _future = DioClient.instance.getPreferredPack();
+    print(_future);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: Dimensions.PADDING_SIZE_DEFAULT),
+     const   Divider(),
+      const  Center(
           child: Text(
-            "Packages ",
-            style: TextStyle(fontSize: Dimensions.fontSizeExtraLarge),
+            "Offers & Deals ",
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w800, color: Colors.black),
           ),
         ),
+       const Divider(),
         FutureBuilder<PreferredPackModel?>(
             future: _future,
             builder: (context, snapshot) {

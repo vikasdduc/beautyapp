@@ -5,6 +5,7 @@ import 'package:glamcode/view/base/error_screen.dart';
 import 'package:glamcode/view/screens/my_booking/widget/booking_tile.dart';
 
 import '../../base/loading_screen.dart';
+import '../dashboard/dashboard_screen.dart';
 
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({Key? key}) : super(key: key);

@@ -154,7 +154,6 @@ class _AddonsScreenState extends State<AddonsScreen> {
                               context,
                               CupertinoPageRoute(
                                   builder: (context) => const CartScreen()));
-                         
                         },
                         child: const Text("Next")),
                   ))

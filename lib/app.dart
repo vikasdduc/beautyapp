@@ -14,10 +14,12 @@ import 'package:glamcode/data/repository/shopping_repository.dart';
 import 'package:glamcode/splash_screen.dart';
 import 'package:glamcode/theme/light_theme.dart';
 import 'package:glamcode/util/app_constants.dart';
+import 'package:glamcode/view/refertoearn/invitetoearn.dart';
 import 'package:glamcode/view/screens/about/about.dart';
 import 'package:glamcode/view/screens/addons/addons_screen.dart';
 import 'package:glamcode/view/screens/address/address_screen.dart';
 import 'package:glamcode/view/screens/booking_success.dart';
+import 'package:glamcode/view/screens/cart/cart_screen.dart';
 import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
 import 'package:glamcode/view/screens/dashboard/wallet_screen.dart';
 import 'package:glamcode/view/screens/home/home_screen.dart';
@@ -35,6 +37,7 @@ import 'data/model/auth.dart';
 import 'data/repository/user_repository.dart';
 import 'home.dart';
 import 'main.dart';
+import 'util/delete_my_account.dart';
 
 class MyApp extends StatefulWidget {
   final UserRepository userRepository;
@@ -201,6 +204,8 @@ class _MyAppState extends State<MyApp> {
           "/payment": (context) => const PaymentScreen(),
           "/payment-success": (context) => const BookingSuccessScreen(),
           "/wallet-screen": (context) => const WalletScreen(),
+          "/my-cart": (context) => const CartScreen(),
+          "/delete-my-account": (context) => const DeleteMyAccount(),
         },
       ),
     );

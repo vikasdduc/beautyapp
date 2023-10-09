@@ -100,177 +100,275 @@ class _WalletScreenState extends State<WalletScreen>
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      25.0,
-                    ),
-                  ),
-                  child: TabBar(
-                    controller: _tabController,
-                    // give the indicator a decoration (color and border radius)
-                    indicator: BoxDecoration(
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 30, top: 50),
+                //   child: Align(
+                //       alignment: Alignment.centerLeft,
+                //       child: InkWell(
+                //           onTap: () {
+                //             Navigator.pushAndRemoveUntil(
+                //                 context,
+                //                 MaterialPageRoute(
+                //                     builder: (context) =>
+                //                         const DashboardScreen(pageIndex: 0)),
+                //                 (route) => false);
+                //           },
+                //           child: Icon(Icons.arrow_back_ios))),
+                // ),
+                SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(
                         10.0,
                       ),
-                      color: Color(0xFF882EDF),
                     ),
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.black,
-                    tabs: const [
-                      // first tab [you can add an icon using the icon property]
-                      Tab(
-                        text: 'Wallet',
-                      ),
+                    child: TabBar(
+                      controller: _tabController,
+                      // give the indicator a decoration (color and border radius)
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            10.0,
+                          ),
+                          // color: Color(0xFF882EDF),
+                          color: Color.fromARGB(255, 245, 190, 208)),
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.black,
+                      tabs: const [
+                        // first tab [you can add an icon using the icon property]
+                        Tab(
+                          text: 'Wallet',
+                        ),
 
-                      // second tab [you can add an icon using the icon property]
-                      Tab(
-                        text: 'Cashback',
-                      ),
-                    ],
+                        // second tab [you can add an icon using the icon property]
+                        Tab(
+                          text: 'Cashback',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 // tab bar view here
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: displayHeight(context) * 0.01,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: displayHeight(context) * 0.01,
+                          ),
+                          Center(
+                            child: SizedBox(
+                              height: 170,
+                              width: 350,
+                              child: Card(
+                                elevation: 15,
+                                shadowColor: Colors.pink,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      gradient: LinearGradient(colors: [
+                                        Color.fromARGB(255, 164, 137, 240),
+                                        Color.fromARGB(255, 237, 93, 141)
+                                      ])),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Text(
+                                        "   ${walletModel!.username!.toUpperCase()}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 23,
+                                            color: Colors.yellow),
+                                      ),
+                                      SizedBox(
+                                        height: displayHeight(context) * 0.01,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: Row(children: [
+                                          Text(
+                                            "${walletModel!.total}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 40,
+                                                color: Color.fromARGB(
+                                                    255, 255, 211, 53)),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "GlamPoints",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                                fontStyle: FontStyle.italic,
+                                                color: Color.fromARGB(
+                                                    255, 255, 211, 53)),
+                                          ),
+                                        ]),
+                                      ),
+                                      Divider(),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 80, top: 3),
+                                          child: Text(
+                                            "R E D E E M     N O W !",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 238, 243, 238),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                            Text(
-                              "Name :-   ${walletModel!.username!.toUpperCase()}",
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: displayHeight(context) * 0.01,
-                            ),
-                            Text(
-                              "Points :-  ${walletModel!.total}",
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            // give the tab bar a height [can change hheight to preferred height]
-                            SizedBox(
-                              height: displayHeight(context) * 0.02,
-                            ),
+                          ),
 
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: TabBarView(
-                                      controller: _tabController,
-                                      children: [
-                                        // DataTable(
-                                        //     // Datatable widget that have the property columns and rows.
-                                        //     columns: [
-                                        //       // Set the name of the column
-                                        //       DataColumn(
-                                        //         label: Text('ID'),
-                                        //       ),
-                                        //       DataColumn(
-                                        //         label: Text('Name'),
-                                        //       ),
-                                        //       DataColumn(
-                                        //         label: Text('LastName'),
-                                        //       ),
-                                        //       DataColumn(
-                                        //         label: Text('Age'),
-                                        //       ),
-                                        //     ],
-                                        //     rows:
-                                        //     [
-                                        //       // Set the values to the columns
-                                        //       DataRow(cells: [
-                                        //         DataCell(Text(
-                                        //             walletModel!.total!.toString())),
-                                        //         DataCell(Text("Alex")),
-                                        //         DataCell(Text("Anderson")),
-                                        //         DataCell(Text("18")),
-                                        //       ]),
-                                        //       DataRow(cells: [
-                                        //         DataCell(Text("2")),
-                                        //         DataCell(Text("John")),
-                                        //         DataCell(Text("Anderson")),
-                                        //         DataCell(Text("24")),
-                                        //       ]),
-                                        //     ]),
+                          // give the tab bar a height [can change hheight to preferred height]
+                          SizedBox(
+                            height: displayHeight(context) * 0.02,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: TabBarView(
+                                    controller: _tabController,
+                                    children: [
+                                      // DataTable(
+                                      //     // Datatable widget that have the property columns and rows.
+                                      //     columns: [
+                                      //       // Set the name of the column
+                                      //       DataColumn(
+                                      //         label: Text('ID'),
+                                      //       ),
+                                      //       DataColumn(
+                                      //         label: Text('Name'),
+                                      //       ),
+                                      //       DataColumn(
+                                      //         label: Text('LastName'),
+                                      //       ),
+                                      //       DataColumn(
+                                      //         label: Text('Age'),
+                                      //       ),
+                                      //     ],
+                                      //     rows:
+                                      //     [
+                                      //       // Set the values to the columns
+                                      //       DataRow(cells: [
+                                      //         DataCell(Text(
+                                      //             walletModel!.total!.toString())),
+                                      //         DataCell(Text("Alex")),
+                                      //         DataCell(Text("Anderson")),
+                                      //         DataCell(Text("18")),
+                                      //       ]),
+                                      //       DataRow(cells: [
+                                      //         DataCell(Text("2")),
+                                      //         DataCell(Text("John")),
+                                      //         DataCell(Text("Anderson")),
+                                      //         DataCell(Text("24")),
+                                      //       ]),
+                                      //     ]),
 
-                                        Column(
-                                          children: [
-                                            Card(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10.0),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    const Expanded(
-                                                        flex: 1,
-                                                        child: Text(
-                                                          "Sr.No",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )),
-                                                    Expanded(
-                                                        flex: 1,
-                                                        child: Container()),
-                                                    const Expanded(
-                                                        flex: 2,
-                                                        child: Text("Points",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold))),
-                                                    const Expanded(
-                                                        flex: 2,
-                                                        child: Text("Expiry",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold))),
-                                                    Expanded(
-                                                        flex: 1,
-                                                        child: Container()),
-                                                    const Expanded(
-                                                        flex: 2,
-                                                        child: Text("Created",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold))),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: ListView.builder(
-                                                  itemCount: walletModel!
-                                                      .wallet!.length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return Card(
-                                                      color: index % 2 == 0
-                                                          ? Colors.white
-                                                          : Color.fromARGB(255,
-                                                              248, 244, 244),
+                                      Column(
+                                        children: [
+                                          // Card(
+                                          //   child: Padding(
+                                          //     padding:
+                                          //         const EdgeInsets.all(10.0),
+                                          //     child: Row(
+                                          //       mainAxisAlignment:
+                                          //           MainAxisAlignment
+                                          //               .spaceBetween,
+                                          //       children: [
+                                          //         const Expanded(
+                                          //             flex: 1,
+                                          //             child: Text(
+                                          //               "Sr.No",
+                                          //               style: TextStyle(
+                                          //                   fontWeight:
+                                          //                       FontWeight
+                                          //                           .bold),
+                                          //             )),
+                                          //         Expanded(
+                                          //             flex: 1,
+                                          //             child: Container()),
+                                          //         const Expanded(
+                                          //             flex: 2,
+                                          //             child: Text("Points",
+                                          //                 style: TextStyle(
+                                          //                     fontWeight:
+                                          //                         FontWeight
+                                          //                             .bold))),
+                                          //         const Expanded(
+                                          //             flex: 2,
+                                          //             child: Text("Expiry",
+                                          //                 style: TextStyle(
+                                          //                     fontWeight:
+                                          //                         FontWeight
+                                          //                             .bold))),
+                                          //         Expanded(
+                                          //             flex: 1,
+                                          //             child: Container()),
+                                          //         const Expanded(
+                                          //             flex: 2,
+                                          //             child: Text("Created",
+                                          //                 style: TextStyle(
+                                          //                     fontWeight:
+                                          //                         FontWeight
+                                          //                             .bold))),
+                                          //       ],
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          Expanded(
+                                            child: ListView.builder(
+                                                itemCount:
+                                                    walletModel!.wallet!.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return Card(
+                                                    elevation: 10,
+                                                    shadowColor: Colors.pink,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12)),
+                                                    color: index % 2 == 0
+                                                        ? Colors.white
+                                                        : Color.fromARGB(
+                                                            255, 248, 244, 244),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
                                                       child: Container(
                                                         alignment:
                                                             Alignment.center,
@@ -292,6 +390,9 @@ class _WalletScreenState extends State<WalletScreen>
                                                                     .sr
                                                                     .toString(),
                                                                 style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                     fontSize:
                                                                         15.0),
                                                               ),
@@ -302,6 +403,9 @@ class _WalletScreenState extends State<WalletScreen>
                                                                     .points
                                                                     .toString(),
                                                                 style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                     fontSize:
                                                                         15.0),
                                                               ),
@@ -312,6 +416,9 @@ class _WalletScreenState extends State<WalletScreen>
                                                                     .expiry
                                                                     .toString(),
                                                                 style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                     fontSize:
                                                                         15.0),
                                                               ),
@@ -322,6 +429,9 @@ class _WalletScreenState extends State<WalletScreen>
                                                                     .createdAt
                                                                     .toString(),
                                                                 style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                     fontSize:
                                                                         15.0),
                                                               ),
@@ -329,192 +439,195 @@ class _WalletScreenState extends State<WalletScreen>
                                                           ),
                                                         ),
                                                       ),
-                                                    );
-                                                  }),
-                                            ),
-                                          ],
-                                        ),
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                        ],
+                                      ),
 
-                                        // second tab bar view widget
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GridView.builder(
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    crossAxisSpacing: 10,
-                                                    // mainAxisExtent: 150,
-                                                    mainAxisSpacing: 10),
-                                            itemCount: cashbackViewModel!
-                                                .reward!.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                                  Scaffold(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    body:
-                                                                        SafeArea(
-                                                                      child:
-                                                                          Stack(
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding:
-                                                                                EdgeInsets.only(top: displayHeight(context) * 0.2, left: 20),
+                                      // second tab bar view widget
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GridView.builder(
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  crossAxisSpacing: 10,
+                                                  // mainAxisExtent: 150,
+                                                  mainAxisSpacing: 10),
+                                          itemCount:
+                                              cashbackViewModel!.reward!.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder:
+                                                            (context) =>
+                                                                Scaffold(
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  body:
+                                                                      SafeArea(
+                                                                    child:
+                                                                        Stack(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsets.only(
+                                                                              top: displayHeight(context) * 0.2,
+                                                                              left: 20),
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
                                                                             child:
-                                                                                GestureDetector(
-                                                                              onTap: () {
-                                                                                Navigator.pop(context);
-                                                                              },
-                                                                              child: CircleAvatar(
-                                                                                radius: 15,
-                                                                                child: Icon(Icons.close, color: Colors.white),
-                                                                              ),
+                                                                                CircleAvatar(
+                                                                              radius: 15,
+                                                                              child: Icon(Icons.close, color: Colors.white),
                                                                             ),
                                                                           ),
-                                                                          AlertDialog(
-                                                                            backgroundColor:
-                                                                                Colors.white,
-                                                                            actions: [
-                                                                              Scratcher(
-                                                                                brushSize: 100,
-                                                                                threshold: 100,
-                                                                                color: Color(0xFF882EDF),
-                                                                                onChange: (value) => print("Scratch progress: $value%"),
-                                                                                onThreshold: () => _controller.play(),
-                                                                                child: Container(
-                                                                                  decoration: const BoxDecoration(
-                                                                                    image: DecorationImage(
-                                                                                      image: AssetImage(
-                                                                                        'assets/images/background.png',
-                                                                                      ),
-                                                                                      fit: BoxFit.cover,
+                                                                        ),
+                                                                        AlertDialog(
+                                                                          backgroundColor:
+                                                                              Colors.white,
+                                                                          actions: [
+                                                                            Scratcher(
+                                                                              brushSize: 100,
+                                                                              threshold: 100,
+                                                                              color: Color(0xFF882EDF),
+                                                                              onChange: (value) => print("Scratch progress: $value%"),
+                                                                              onThreshold: () => _controller.play(),
+                                                                              child: Container(
+                                                                                decoration: const BoxDecoration(
+                                                                                  image: DecorationImage(
+                                                                                    image: AssetImage(
+                                                                                      'assets/images/background.png',
                                                                                     ),
-                                                                                  ),
-                                                                                  height: displayHeight(context) * 0.3,
-                                                                                  width: displayWidth(context) * 0.8,
-
-                                                                                  // color: Colors
-                                                                                  //     .grey,
-                                                                                  child: Column(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Text(
-                                                                                        "You get ${cashbackViewModel!.reward!.first.reward}",
-                                                                                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-                                                                                      ),
-                                                                                      Text("Expired ${cashbackViewModel!.reward!.first.expiry}", style: const TextStyle(fontSize: 20, color: Colors.white)),
-                                                                                      Column(
-                                                                                        children: [
-                                                                                          ConfettiWidget(
-                                                                                            blastDirectionality: BlastDirectionality.explosive,
-                                                                                            confettiController: _controller,
-                                                                                            particleDrag: 0.05,
-                                                                                            emissionFrequency: 0.05,
-                                                                                            numberOfParticles: 100,
-                                                                                            gravity: 0.05,
-                                                                                            shouldLoop: false,
-                                                                                            colors: const [
-                                                                                              Colors.green,
-                                                                                              Colors.red,
-                                                                                              Colors.yellow,
-                                                                                              Colors.blue,
-                                                                                            ],
-                                                                                          ),
-                                                                                          Text(cashbackViewModel!.reward!.first.describtion.toString(), style: const TextStyle(fontSize: 20, color: Colors.white)),
-                                                                                        ],
-                                                                                      ),
-                                                                                      GestureDetector(
-                                                                                        onTap: () {
-                                                                                          addSave();
-                                                                                          Navigator.push(
-                                                                                            context,
-                                                                                            MaterialPageRoute(builder: (context) => DashboardScreen(pageIndex: 1)),
-                                                                                          );
-                                                                                        },
-                                                                                        child: const Card(
-                                                                                            child: Padding(
-                                                                                          padding: EdgeInsets.all(8.0),
-                                                                                          child: Text(
-                                                                                            "Accept",
-                                                                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                                                                          ),
-                                                                                        )),
-                                                                                      )
-                                                                                    ],
+                                                                                    fit: BoxFit.cover,
                                                                                   ),
                                                                                 ),
+                                                                                height: displayHeight(context) * 0.3,
+                                                                                width: displayWidth(context) * 0.8,
+
+                                                                                // color: Colors
+                                                                                //     .grey,
+                                                                                child: Column(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      "You get ${cashbackViewModel!.reward!.first.reward}",
+                                                                                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                                                                    ),
+                                                                                    Text("Expired ${cashbackViewModel!.reward!.first.expiry}", style: const TextStyle(fontSize: 20, color: Colors.white)),
+                                                                                    Column(
+                                                                                      children: [
+                                                                                        ConfettiWidget(
+                                                                                          blastDirectionality: BlastDirectionality.explosive,
+                                                                                          confettiController: _controller,
+                                                                                          particleDrag: 0.05,
+                                                                                          emissionFrequency: 0.05,
+                                                                                          numberOfParticles: 100,
+                                                                                          gravity: 0.05,
+                                                                                          shouldLoop: false,
+                                                                                          colors: const [
+                                                                                            Colors.green,
+                                                                                            Colors.red,
+                                                                                            Colors.yellow,
+                                                                                            Colors.blue,
+                                                                                          ],
+                                                                                        ),
+                                                                                        Text(cashbackViewModel!.reward!.first.describtion.toString(), style: const TextStyle(fontSize: 20, color: Colors.white)),
+                                                                                      ],
+                                                                                    ),
+                                                                                    GestureDetector(
+                                                                                      onTap: () {
+                                                                                        addSave();
+                                                                                        Navigator.push(
+                                                                                          context,
+                                                                                          MaterialPageRoute(builder: (context) => DashboardScreen(pageIndex: 1)),
+                                                                                        );
+                                                                                      },
+                                                                                      child: const Card(
+                                                                                          child: Padding(
+                                                                                        padding: EdgeInsets.all(8.0),
+                                                                                        child: Text(
+                                                                                          "Accept",
+                                                                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                                                                        ),
+                                                                                      )),
+                                                                                    )
+                                                                                  ],
+                                                                                ),
                                                                               ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                  ))
-                                                      // ScrachView(
-                                                      //   data:
-                                                      //       cashbackViewModel,
-                                                      // ))
-                                                      );
-                                                },
-                                                child: Container(
-                                                    decoration: BoxDecoration(
+                                                                  ),
+                                                                ))
+                                                    // ScrachView(
+                                                    //   data:
+                                                    //       cashbackViewModel,
+                                                    // ))
+                                                    );
+                                              },
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                    color: Color(0xFF882EDF),
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                          color: Colors.white,
+                                                          spreadRadius: 1),
+                                                    ],
+                                                  ),
+                                                  height:
+                                                      displayHeight(context) *
+                                                          1,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15),
-                                                      color: Color(0xFF882EDF),
-                                                      boxShadow: const [
-                                                        BoxShadow(
-                                                            color: Colors.white,
-                                                            spreadRadius: 1),
-                                                      ],
-                                                    ),
-                                                    height:
-                                                        displayHeight(context) *
-                                                            1,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        child: SvgPicture.asset(
-                                                          'assets/images/forntc.svg',
-                                                          height: displayHeight(
-                                                                  context) *
-                                                              0.2,
-                                                          width: 20.0,
-                                                          allowDrawingOutsideViewBox:
-                                                              true,
-                                                        ),
+                                                              10),
+                                                      child: SvgPicture.asset(
+                                                        'assets/images/forntc.svg',
+                                                        height: displayHeight(
+                                                                context) *
+                                                            0.2,
+                                                        width: 20.0,
+                                                        allowDrawingOutsideViewBox:
+                                                            true,
                                                       ),
-                                                    )
-                                                    // child: Text(cashbackViewModel!
-                                                    //     .reward![index].expiry
-                                                    //     .toString()))
                                                     ),
-                                              );
-                                            },
-                                          ),
+                                                  )
+                                                  // child: Text(cashbackViewModel!
+                                                  //     .reward![index].expiry
+                                                  //     .toString()))
+                                                  ),
+                                            );
+                                          },
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

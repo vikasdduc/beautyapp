@@ -14,10 +14,14 @@ import 'package:glamcode/data/repository/shopping_repository.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import 'app.dart';
 import 'blocs/bloc_observer.dart';
 import 'data/model/auth.dart';
 import 'data/repository/user_repository.dart';
+
+Uuid uuid =const Uuid();
+ 
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();

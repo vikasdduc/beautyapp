@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +27,7 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
   late Future<BookingSlotModel?> _future;
 
   String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  bool isCurrent = false;
 
   @override
   void initState() {
@@ -101,6 +104,7 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                 } else if (cartState is CartDataLoaded) {
                   String selectedDateTime =
                       cartState.cartData.bookingDateTime ?? "";
+                  log(selectedDateTime.toString());
                   String timeSlot = "";
                   try {
                     final DateTime dateTime = DateTime.parse(selectedDateTime);
@@ -119,7 +123,8 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                           bookingSlotsData = snapshot.data!;
                           print(bookingSlotsData.status);
                         }
-                        List<Status> slotArray = bookingSlotsData.status ?? [];
+                        List<AvailableSlots> slotArray =
+                            bookingSlotsData.availableSlots ?? [];
                         return GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -131,42 +136,43 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
                                 onTap: () {
-                                  final date =
-                                      DateTime.parse(slotArray[index].d!);
-                                  final DateFormat formatter =
-                                      DateFormat('HH:mm:ss');
+                                  // final date = DateTime.parse(
+                                  //     "2023-10-03T10:00:00.000000Z");
+                                  // final DateFormat formatter =
+                                  //     DateFormat('HH:mm:ss');
                                   setState(() {
                                     context.read<CartDataBloc>().add(
-                                        CartBookingSlotUpdate(formatter
-                                            .parseStrict(
-                                                slotArray[index].otherDate!)
-                                            .copyWith(
-                                              year: date.year,
-                                              month: date.month,
-                                              day: date.day,
-                                            )
-                                            .toString()));
+                                        CartBookingSlotUpdate(
+                                            "${slotArray[index].date!} ${slotArray[index].otherDate}"));
                                   });
+                                  log("${timeSlot}");
                                 },
-                                child: timeSlot ==
-                                        "${(slotArray[index].otherDate)}"
-                                    ? Card(
-                                        color: const Color(0xFFae65ff),
-                                        child: Center(
-                                            child: Text(
-                                          (slotArray[index].otherDate) ?? "",
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        )),
-                                      )
-                                    : Card(
-                                        color: const Color(0xFFd9bef4),
-                                        child: Center(
-                                          child: Text(
-                                            slotArray[index].otherDate ?? "",
-                                          ),
-                                        ),
-                                      ),
+                                // child: timeSlot == "${(slotArray[index].date)}${slotArray[index].slotStartTime}"
+                                child: (slotArray[index].isCurrent == false)
+                                    ? (selectedDateTime ==
+                                            "${slotArray[index].date!} ${slotArray[index].otherDate}"
+                                        ? Card(
+                                            color: const Color(0xFFae65ff),
+                                            child: Center(
+                                                child: Text(
+                                              (slotArray[index]
+                                                      .slotStartTime) ??
+                                                  "",
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            )),
+                                          )
+                                        : Card(
+                                            color: const Color(0xFFd9bef4),
+                                            child: Center(
+                                              child: Text(
+                                                slotArray[index]
+                                                        .slotStartTime ??
+                                                    "",
+                                              ),
+                                            ),
+                                          ))
+                                    : Container(),
                               );
                             });
                       } else {
@@ -210,16 +216,18 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                       child: Padding(
                     padding:
                         const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                    child: CupertinoButton( //TextButton
-                        color: const Color(0xFFA854FC),
-                        // style: TextButton.styleFrom(
-                        //     backgroundColor: const Color(0xFFA854FC),
-                        //     minimumSize: const Size(double.infinity,
-                        //         Dimensions.PADDING_SIZE_DEFAULT),
-                        //     padding: const EdgeInsets.symmetric(
-                        //         vertical: Dimensions.PADDING_SIZE_DEFAULT),
-                        //     textStyle: TextStyle(
-                        //         fontSize: Dimensions.fontSizeExtraLarge)),
+                    child: TextButton(
+                        //TextButton
+                        // color: const Color(0xFFA854FC),
+
+                        style: TextButton.styleFrom(
+                            backgroundColor: const Color(0xFFA854FC),
+                            minimumSize: const Size(double.infinity,
+                                Dimensions.PADDING_SIZE_DEFAULT),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: Dimensions.PADDING_SIZE_DEFAULT),
+                            textStyle: TextStyle(
+                                fontSize: Dimensions.fontSizeExtraLarge)),
                         onPressed: () {
                           if (cartState.cartData.bookingDateTime != null &&
                               cartState.cartData.bookingDateTime != "") {

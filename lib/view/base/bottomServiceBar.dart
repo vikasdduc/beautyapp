@@ -32,7 +32,8 @@ class BottomServiceBar extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: Dimensions.PADDING_SIZE_DEFAULT,
                                 vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            color: Color(0xFF882EDF),
+                            // color: Color(0xFF882EDF),
+                            color: Colors.white,
                             child: Text(
                               cartState.cartData.originalAmount! <
                                       (cartState.cartData.mincheck ?? 0)
@@ -47,14 +48,15 @@ class BottomServiceBar extends StatelessWidget {
                                       : "Add Services of Rs ${context.read<CartBloc>().getUpcomingDiscount(cartState.cartData.originalAmount!).minimumPurchaseAmount! - cartState.cartData.originalAmount!} to unlock Coupon Code ${context.read<CartBloc>().getUpcomingDiscount(cartState.cartData.originalAmount!).title}",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontSize: Dimensions.fontSizeSmall),
                             ),
                           ),
                           Container(
                             // color: const Color(0xFFFFF1F1),
 
-                            color: const Color(0xFFAF73E9),
+                            // color: const Color(0xFFAF73E9),
+                            color: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: Dimensions.PADDING_SIZE_DEFAULT,
                                 vertical: Dimensions.PADDING_SIZE_SMALL),
@@ -69,7 +71,7 @@ class BottomServiceBar extends StatelessWidget {
                                       "${state.cart.getTotalQuantity()} items(s) | ₹${cartState.cartData.originalAmount}",
                                       style: TextStyle(
                                           // color: Color(0xFF882EDF),
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontSize:
                                               Dimensions.fontSizeExtraLarge),
@@ -158,22 +160,22 @@ class BottomServiceBar extends StatelessWidget {
                                             },
                                             style: ElevatedButton.styleFrom(
                                               foregroundColor: Colors.white,
-                                              backgroundColor:
-                                                  // Color.fromARGB(255, 7, 0, 0),
-                                                  const Color(0xFF882EDF),
+                                              backgroundColor: Color.fromARGB(
+                                                  255, 37, 179, 56),
+                                              // const Color(0xFF882EDF),
                                               animationDuration: const Duration(
                                                   milliseconds: 1000),
                                               shadowColor:
                                                   // const Color(0xFFFFF1F1),
                                                   const Color(0xFFAF73E9),
-                                              elevation: 10,
+                                              elevation: 0,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
                                             ),
                                             child: const Text(
-                                              " Checkout ",
+                                              " View Cart ",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18),

@@ -20,6 +20,7 @@ import '../../../data/api/api_helper.dart';
 import '../../../data/model/address_details_model.dart';
 import '../../base/loading_screen.dart';
 import '../address/selectnew_address.dart';
+import '../home/map_location/searchLocationMap.dart';
 
 int checkedauth = 0;
 
@@ -50,9 +51,9 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     initialize();
-    checkForAuth = CheckForAuth();
+    checkForAuth = const CheckForAuth();
 
-    user = User();
+    user = const User();
     CouponRepository.instance.clearCouponInstance();
     context.read<CartDataBloc>().add(CartDataUpdate());
     _future = DioClient.instance.getAddress();
@@ -66,9 +67,7 @@ class _CartScreenState extends State<CartScreen> {
         scroll_visibility = false;
       } else {
         scroll_visibility = true;
-        setState(() {
-          
-        });
+        setState(() {});
       }
     });
     //End scroll Controller
@@ -107,7 +106,11 @@ class _CartScreenState extends State<CartScreen> {
                       } else if (cartState is CartDataLoaded) {
                         return Scaffold(
                           appBar: AppBar(
-                            title: const Text("MY CART"),
+                            elevation: 0,
+                            title: const Text(
+                              "Summary",
+                              style: TextStyle(),
+                            ),
                           ),
                           body: SingleChildScrollView(
                             child: cart.isNotEmpty
@@ -176,13 +179,22 @@ class _CartScreenState extends State<CartScreen> {
                                                   if (primaryAddressDetails ==
                                                       null) {
                                                     // Navigator.pop(context);
-                                                    Navigator.of(context).push(
+                                                    // Navigator.of(context).push(
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             SelectAddressScreen(
+                                                    //                 edit: false,
+                                                    //                 addressDetails:
+                                                    //                     AddressDetails())));
+                                                     Navigator.push(
+                                                        context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                SelectAddressScreen(
-                                                                    edit: false,
-                                                                    addressDetails:
-                                                                        AddressDetails())));
+                                                                SearchLocationScreen(
+                                                                  edit: false,
+                                                                  addressDetails:
+                                                                      AddressDetails(),
+                                                                )));
                                                   }
                                                   Navigator.of(context)
                                                       .pushNamed('/address');

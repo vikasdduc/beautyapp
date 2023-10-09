@@ -7,7 +7,6 @@ import 'package:glamcode/view/screens/profile/profile_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -43,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) =>
-                          const DashboardScreen(pageIndex: 4)),
+                          const DashboardScreen(pageIndex: 3)),
                   ModalRoute.withName('/index'));
             }, context), //removed membership
             drawerTile("Blog", Icons.comment_bank, null, context),

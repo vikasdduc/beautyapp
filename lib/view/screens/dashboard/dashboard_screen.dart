@@ -48,36 +48,6 @@ class DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     final checker = AppVersionChecker();
     checker.checkUpdate();
-    //.then((value) {
-    //     if (value.canUpdate) {
-    //     WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //       showDialog(
-    //         context: context,
-    //         builder: (BuildContext context) {
-    //           return AlertDialog(
-    //             title: const Text("Update App"),
-    //             content: const Text(" Download the latest version!!"),
-    //             actions: [
-    //               ElevatedButton(
-    //                   onPressed: () {
-    //                     LaunchReview.launch(
-    //                         androidAppId: 'in.glamcode.app',
-    //                         iOSAppId: 'in.glamcode.app');
-    //                   },
-    //                   child: const Text("Update"))
-    //             ],
-    //           );
-    //         },
-    //       );
-    //     });
-    //   }
-    // });
-
-    //new_version checks
-    // final newVersion = NewVersion();
-    // newVersion.showAlertIfNecessary(context: context);
-
-    // checkversion();
 
     _pageIndex = widget.pageIndex;
 
@@ -92,13 +62,27 @@ class DashboardScreenState extends State<DashboardScreen> {
     ];
 
     bottomNavbarList = [
-      bottomNavItem(context, Icons.home_filled, "Home",),
-      bottomNavItem(context, Icons.wallet, "Wallet",
-  ),
-      bottomNavItem(context, Icons.shopping_bag, "Bookings",
-     ),
+      bottomNavItem(
+        context,
+        Icons.cabin_outlined,
+        "Home",
+      ),
+      bottomNavItem(
+        context,
+        Icons.wallet_outlined,
+        "Wallet",
+      ),
+      bottomNavItem(
+        context,
+        Icons.calendar_month_outlined,
+        "Bookings",
+      ),
       // bottomNavItem(context, Icons.notifications, "Notifications"),
-      bottomNavItem(context, Icons.person, "Profile",)
+      bottomNavItem(
+        context,
+        Icons.person_outlined,
+        "Profile",
+      )
     ];
 
     if (Platform.isAndroid || Platform.isIOS) {
@@ -137,38 +121,38 @@ class DashboardScreenState extends State<DashboardScreen> {
               Auth.instance.prefs.containsKey("selectedLocationId"))
           ? Scaffold(
               backgroundColor: const Color(0xFFFFF1F1),
-              appBar: AppBar(
-                // centerTitle: _pageIndex == 0 ? true : false,
-                elevation: 0,
-                centerTitle: true,
-                title: const Text(
-                  "GLAMCODE",
-                  // _titles[_pageIndex],
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                backgroundColor: Colors.white,
-                actions: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NotificationScreen()));
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Icon(
-                        Icons.notifications_active_sharp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              // appBar: AppBar(
+              //   // centerTitle: _pageIndex == 0 ? true : false,
+              //   elevation: 0,
+              //   centerTitle: true,
+              //   title: const Text(
+              //     "GLAMCODE",
+              //     // _titles[_pageIndex],
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              //   backgroundColor: Colors.white,
+              //   actions: [
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) =>
+              //                     const NotificationScreen()));
+              //       },
+              //       child: const Padding(
+              //         padding: EdgeInsets.only(right: 10),
+              //         child: Icon(
+              //           Icons.notifications_active_sharp,
+              //           color: Colors.black,
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // ),
               key: _scaffoldKey,
               bottomNavigationBar: ResponsiveHelper.isDesktop(context)
                   ? const SizedBox()

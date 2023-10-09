@@ -8,6 +8,7 @@ import 'package:glamcode/view/screens/address/selectnew_address.dart';
 import '../../../data/api/api_helper.dart';
 import '../../../util/dimensions.dart';
 import '../cart/cart_screen.dart';
+import '../home/map_location/searchLocationMap.dart';
 
 class EditAddressScreen extends StatefulWidget {
   final AddressDetails addressDetails;
@@ -99,15 +100,24 @@ class _EditAddressScreenState extends State<EditAddressScreen>
                                                   const Color(0xFFA854FC))),
                                       onPressed: () {
                                         Navigator.pop(context);
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                settings: const RouteSettings(
-                                                    name: "/edit-address"),
-                                                builder: (context) =>
-                                                    SelectAddressScreen(
-                                                        edit: true,
-                                                        addressDetails: widget
-                                                            .addressDetails)));
+                                        // Navigator.of(context).push(
+                                        //     MaterialPageRoute(
+                                        //         settings: const RouteSettings(
+                                        //             name: "/edit-address"),
+                                        //         builder: (context) =>
+                                        //             SelectAddressScreen(
+                                        //                 edit: true,
+                                        //                 addressDetails: widget
+                                        //                     .addressDetails)));
+                                         Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                SearchLocationScreen(
+                                                                  edit: false,
+                                                                  addressDetails:
+                                                                      AddressDetails(),
+                                                                )));
                                       },
                                       child: const Text("Approve"),
                                     ),

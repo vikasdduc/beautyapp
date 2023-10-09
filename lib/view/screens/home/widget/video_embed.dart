@@ -15,7 +15,8 @@ class _VideoEmbedState extends State<VideoEmbed> {
   bool autoPlay = false;
 
   String urlParser(String url) {
-    RegExp regExp = RegExp(r"/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/",
+    RegExp regExp = RegExp(
+      r"/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/",
       caseSensitive: false,
       multiLine: false,
     );
@@ -42,31 +43,36 @@ class _VideoEmbedState extends State<VideoEmbed> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: Dimensions.PADDING_SIZE_DEFAULT),
-          child: Text(
-            "What Celebrities Say ",
-            style: TextStyle(fontSize: Dimensions.fontSizeExtraLarge),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: YoutubePlayerControllerProvider(
-            controller: _controller,
-            child: YoutubePlayer(
-              aspectRatio: 16 / 9,
-              controller: _controller,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        const  Padding(
+            padding:  EdgeInsets.symmetric(vertical: 18),
+            child: Text(
+              " Thoughtful Curations",
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.purple,
+                  fontWeight: FontWeight.w800),
             ),
           ),
-        ),
-      ],
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            clipBehavior: Clip.hardEdge,
+            child: YoutubePlayerControllerProvider(
+              controller: _controller,
+              child: YoutubePlayer(
+                aspectRatio: 16 / 9,
+                controller: _controller,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -44,10 +44,13 @@ class PackageInfo extends StatelessWidget {
                     shadowColor: Colors.pinkAccent,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4)),
-                    child: Image.network(
-                      servicePackage.serviceImageUrl ?? "",
-                      // width: double.infinity,
-                      // fit: BoxFit.cover,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Image.network(
+                        servicePackage.serviceImageUrl ?? "",
+                        // width: double.infinity,
+                        // fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -61,83 +64,87 @@ class PackageInfo extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                     child: Padding(
                       padding: EdgeInsets.all(15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                servicePackage.name ?? "",
-                                style: TextStyle(
-                                    fontSize: Dimensions.fontSizeExtraLarge,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(
-                                    Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                                child: RichText(
-                                  text: TextSpan(
-                                    text:
-                                        "₹${servicePackage.discountedPrice}   ",
-                                    style: TextStyle(
-                                        fontSize: Dimensions.fontSizeDefault,
-                                        color: Colors.black),
-                                    children: [
-                                      WidgetSpan(
-                                        child: Transform.translate(
-                                          offset: const Offset(0.0, -4.0),
-                                          child: Text(
-                                            "₹${servicePackage.price}",
-                                            style: TextStyle(
-                                              fontSize:
-                                                  Dimensions.fontSizeSmall,
-                                              color: Colors.grey,
-                                              decoration:
-                                                  TextDecoration.lineThrough,
+                      child: SingleChildScrollView(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  servicePackage.name ?? "",
+                                  style: TextStyle(
+                                      fontSize: Dimensions.fontSizeExtraLarge,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(
+                                      Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text:
+                                          "₹${servicePackage.discountedPrice}   ",
+                                      style: TextStyle(
+                                          fontSize: Dimensions.fontSizeDefault,
+                                          color: Colors.black),
+                                      children: [
+                                        WidgetSpan(
+                                          child: Transform.translate(
+                                            offset: const Offset(0.0, -4.0),
+                                            child: Text(
+                                              "₹${servicePackage.price}",
+                                              style: TextStyle(
+                                                fontSize:
+                                                    Dimensions.fontSizeSmall,
+                                                color: Colors.grey,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      WidgetSpan(
-                                        alignment: PlaceholderAlignment.bottom,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: Dimensions
-                                                  .PADDING_SIZE_DEFAULT),
-                                          child: GoldenText(
-                                            text:
-                                                "  ${servicePackage.discount}% Off  ",
+                                        WidgetSpan(
+                                          alignment:
+                                              PlaceholderAlignment.bottom,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: Dimensions
+                                                    .PADDING_SIZE_DEFAULT),
+                                            child: GoldenText(
+                                              text:
+                                                  "  ${servicePackage.discount}% Off  ",
+                                            ),
                                           ),
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(
+                                      Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_time_rounded,
+                                        size: Dimensions.fontSizeDefault,
+                                      ),
+                                      Text(
+                                        "  ${servicePackage.time} Minutes",
+                                        style: TextStyle(
+                                            fontSize:
+                                                Dimensions.fontSizeDefault),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(
-                                    Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.access_time_rounded,
-                                      size: Dimensions.fontSizeDefault,
-                                    ),
-                                    Text(
-                                      "  ${servicePackage.time} Minutes",
-                                      style: TextStyle(
-                                          fontSize: Dimensions.fontSizeDefault),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          CartCounter(
-                            servicePackage: servicePackage,
-                          )
-                        ],
+                              ],
+                            ),
+                            CartCounter(
+                              servicePackage: servicePackage,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

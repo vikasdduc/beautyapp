@@ -83,86 +83,86 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
             height: 50,
           ),
           if (bookingResponse.coupon != null) ...[
-          Scratcher(
-            brushSize: 30,
-            threshold: 50,
-            color: Color.fromARGB(255, 16, 115, 255),
-            onChange: (value) => print("Scratch progress: $value%"),
-            onThreshold: () => print("Threshold reached, you won!"),
-            child: Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadiusDirectional.circular(20),
-                gradient: const LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 254, 127, 116),
-                    Color.fromARGB(255, 251, 5, 5)
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+            Scratcher(
+              brushSize: 30,
+              threshold: 50,
+              color: Color.fromARGB(255, 16, 115, 255),
+              onChange: (value) => print("Scratch progress: $value%"),
+              onThreshold: () => print("Threshold reached, you won!"),
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(20),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color.fromARGB(255, 254, 127, 116),
+                      Color.fromARGB(255, 251, 5, 5)
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
                 ),
+                child: Column(children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    // "🎁",
+                    // "🎊",
+                    "🎉",
+                    style: TextStyle(
+                        fontSize: 70,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 255, 255, 0)),
+                  ), //🎊🎁
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    "You've won",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  Text(
+                    "${bookingResponse.coupon?.points.toString()} points",
+                    style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 250, 230, 10)),
+                  )
+                ]),
               ),
-              child: Column(children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  // "🎁",
-                  // "🎊",
-                  "🎉",
-                  style: TextStyle(
-                      fontSize: 70,
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 255, 255, 0)),
-                ), //🎊🎁
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  "You've won",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                Text(
-                  "${bookingResponse.coupon?.points.toString()} points",
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 250, 230, 10)),
-                )
-              ]),
             ),
-          ),
-          // Card(
-          //   child: Row(
-          //     children: [
-          //       Padding(
-          //         padding: const EdgeInsets.all(8.0),
-          //         child: Image.asset(
-          //           'assets/images/confirm1.png',
-          //           fit: BoxFit.fill,
-          //           height: MediaQuery.of(context).size.height * 0.1,
-          //         ),
-          //       ),
-          //       Column(
-          //         children: [
-          //           Text(
-          //             "Yay you just won a ${bookingResponse.coupon?.points.toString()}",
-          //             style:
-          //                 TextStyle(fontSize: displayHeight(context) * 0.025),
-          //           ),
-          //           Text(
-          //             "Scarch Card",
-          //             style: TextStyle(
-          //                 fontSize: displayHeight(context) * 0.03,
-          //                 fontWeight: FontWeight.w500),
-          //           ),
-          //         ],
-          //       ),
-              ],
+            // Card(
+            //   child: Row(
+            //     children: [
+            //       Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Image.asset(
+            //           'assets/images/confirm1.png',
+            //           fit: BoxFit.fill,
+            //           height: MediaQuery.of(context).size.height * 0.1,
+            //         ),
+            //       ),
+            //       Column(
+            //         children: [
+            //           Text(
+            //             "Yay you just won a ${bookingResponse.coupon?.points.toString()}",
+            //             style:
+            //                 TextStyle(fontSize: displayHeight(context) * 0.025),
+            //           ),
+            //           Text(
+            //             "Scarch Card",
+            //             style: TextStyle(
+            //                 fontSize: displayHeight(context) * 0.03,
+            //                 fontWeight: FontWeight.w500),
+            //           ),
+            //         ],
+            //       ),
+          ],
           //   ),
           // ),
           // const SizedBox(
@@ -244,7 +244,7 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 22),
             child: Center(
               child: Row(children: [
                 const Text(

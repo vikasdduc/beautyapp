@@ -33,7 +33,7 @@ Widget imageSliderTile(SliderImages item) {
     decoration: const BoxDecoration(
       // color: Colors.red,
       borderRadius: BorderRadius.all(
-        Radius.circular(10),
+        Radius.circular(16),
       ),
     ),
     clipBehavior: Clip.hardEdge,

@@ -39,7 +39,7 @@ Widget customerTestimonialCard(Reviews item) {
       padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
       decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(5))),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
@@ -69,10 +69,10 @@ Widget customerTestimonialCard(Reviews item) {
                         child: Text(
                           item.name ?? "User",
                           style: const TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 15),
+                              fontWeight: FontWeight.w900, fontSize: 15),
                         ),
                       ),
-                      const GoldenText(text: "☆ 4.5"),
+                      const GoldenText(text: "  ☆  4.5 "),
                     ],
                   ),
                   Padding(
@@ -81,6 +81,8 @@ Widget customerTestimonialCard(Reviews item) {
                     child: Text(
                       item.description ?? "",
                       maxLines: 3,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, color: Colors.black),
                     ),
                   )
                 ],

@@ -75,38 +75,60 @@ Widget imageGridCard(
           MaterialPageRoute(
               builder: (context) => PackagesScreen(
                     mainCategoryId: id,
-                    mainCategoryName: title,)),
+                    mainCategoryName: title,
+                  )),
           ModalRoute.withName('/index'));
       print("mainCategoryId $id");
     },
-    child: SizedBox(
-      height: 50,
-      width: 50,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 30,
-            // backgroundImage: NetworkImage(imageUrl),
-            backgroundColor: Colors.white,
-            child: ClipOval(
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  image: NetworkImage(imageUrl),
-                )),
-              ),
-            ),
+    child: Column(
+      children: [
+        Card(
+            elevation: 4,
+            shadowColor: const Color.fromARGB(255, 254, 19, 3),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: SizedBox(
+                height: 70,
+                width: 95,
+                child: Image(image: NetworkImage(imageUrl)))),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     ),
+    // child: SizedBox(
+    //   height: 50,
+    //   width: 50,
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //       CircleAvatar(
+    //         radius: 30,
+    //         // backgroundImage: NetworkImage(imageUrl),
+    //         backgroundColor: Colors.white,
+    //         child: ClipOval(
+    //           child: Container(
+    //             decoration: BoxDecoration(
+    //                 image: DecorationImage(
+    //               image: NetworkImage(imageUrl),
+    //             )),
+    //           ),
+    //         ),
+    //       ),
+    //       Padding(
+    //         padding: const EdgeInsets.all(8.0),
+    //         child: Text(
+    //           title,
+    //           textAlign: TextAlign.center,
+    //         ),
+    //       )
+    //     ],
+    //   ),
+    // ),
   );
 }

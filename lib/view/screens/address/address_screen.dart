@@ -10,6 +10,7 @@ import 'package:glamcode/view/screens/address/selectnew_address.dart';
 import '../../base/custom_divider.dart';
 import '../../base/loading_screen.dart';
 import '../cart/cart_screen.dart';
+import '../home/map_location/searchLocationMap.dart';
 
 class AddressDetailsScreen extends StatefulWidget {
   const AddressDetailsScreen({Key? key}) : super(key: key);
@@ -51,14 +52,21 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => SelectAddressScreen(
-                              edit: false,
-                              addressDetails: AddressDetails(),
-                            ),
-                          ),
-                        );
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => SelectAddressScreen(
+                        //       edit: false,
+                        //       addressDetails: AddressDetails(),
+                        //     ),
+                        //   ),
+                        // );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchLocationScreen(
+                                      edit: false,
+                                      addressDetails: AddressDetails(),
+                                    )));
                       },
                       //   showDialog(
                       //     context: context,
@@ -196,17 +204,9 @@ class _AddressTileState extends State<AddressTile> {
                                 setState(() {
                                   loading = true;
                                 });
-                                DioClient.instance
-                                    .deleteAddress(widget
-                                            .addressDetails.addressId
-                                            ?.toInt() ??
-                                        0)
-                                    .then((value) => {
-                                          Navigator.popAndPushNamed(
-                                            context,
-                                            '/address',
-                                          )
-                                        });
+                                DioClient.instance.deleteAddress(
+                                    widget.addressDetails.addressId?.toInt() ??
+                                        0);
                               },
                               child: const Padding(
                                 padding: EdgeInsets.all(8.0),

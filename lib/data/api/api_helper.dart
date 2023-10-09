@@ -195,6 +195,8 @@ class DioClient {
           '$_baseUrl/preferred-pack/${Auth.instance.prefs.getInt("selectedLocationId")}');
       preferredPackModel =
           PreferredPackModel.fromMap(preferredPackModelData.data);
+
+      print(preferredPackModel.toString());
     } on DioError catch (e) {
       print(
           "========================================+++++++++++++++++++++++++> $e");
@@ -230,6 +232,7 @@ class DioClient {
     BookingsModel? bookingsModel;
     try {
       User currentUser = await auth.currentUser;
+      print(currentUser.id);
       Response bookingsModelData =
           await _dio.get('$_baseUrl/bookings/${currentUser.id}');
       bookingsModel = BookingsModel.fromJson(bookingsModelData.data);
@@ -409,15 +412,16 @@ class DioClient {
     User currentUser = await auth.currentUser;
     BookingSlotModel bookingSlotModel;
     final df = DateFormat('yyyy-MM-dd');
+    String dateTimeToSend = df.format(dateTime);
     Map<String, dynamic> data = {
       "bookingDate": df.format(dateTime),
       "location_id": 2.toString()
     };
     try {
-      Response response = await _dio.post(
-        'https://admin.glamcode.in/api/booking-slots',
+      Response response = await _dio.get(
+        '$_baseUrl/available_slots_san/$dateTimeToSend/2',
         //https://admin.glamcode.in/api/booking-slots/
-        data: data,
+        // data: data,
       );
       print(response.toString());
       bookingSlotModel = BookingSlotModel.fromJson(response.data);

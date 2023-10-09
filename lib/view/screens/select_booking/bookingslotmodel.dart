@@ -1,50 +1,59 @@
 class BookingSlotModel {
-  List<Status>? status;
+  String? status;
+  List<AvailableSlots>? availableSlots;
 
-  BookingSlotModel({this.status});
+  BookingSlotModel({this.status, this.availableSlots});
 
   BookingSlotModel.fromJson(Map<String, dynamic> json) {
-    if (json['status'] != null) {
-      status = <Status>[];
-      json['status'].forEach((v) {
-        status!.add(new Status.fromJson(v));
+    status = json['status'];
+    if (json['available_slots'] != null) {
+      availableSlots = <AvailableSlots>[];
+      json['available_slots'].forEach((v) {
+        availableSlots!.add(new AvailableSlots.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.status != null) {
-      data['status'] = this.status!.map((v) => v.toJson()).toList();
+    data['status'] = this.status;
+    if (this.availableSlots != null) {
+      data['available_slots'] =
+          this.availableSlots!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Status {
-  int? slots;
-  String? d;
-  int? slotCount;
-  String? newDate;
+class AvailableSlots {
+  String? date;
+  String? slotStartTime;
+  String? slotEndTime;
   String? otherDate;
+  bool? isCurrent;
 
-  Status({this.slots, this.d, this.slotCount, this.newDate, this.otherDate});
+  AvailableSlots(
+      {this.date,
+      this.slotStartTime,
+      this.slotEndTime,
+      this.otherDate,
+      this.isCurrent});
 
-  Status.fromJson(Map<String, dynamic> json) {
-    slots = json['slots'];
-    d = json['d'];
-    slotCount = json['slot_count'];
-    newDate = json['newDate'];
+  AvailableSlots.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    slotStartTime = json['slot_start_time'];
+    slotEndTime = json['slot_end_time'];
     otherDate = json['otherDate'];
+    isCurrent = json['is_current'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['slots'] = this.slots;
-    data['d'] = this.d;
-    data['slot_count'] = this.slotCount;
-    data['newDate'] = this.newDate;
+    data['date'] = this.date;
+    data['slot_start_time'] = this.slotStartTime;
+    data['slot_end_time'] = this.slotEndTime;
     data['otherDate'] = this.otherDate;
+    data['is_current'] = this.isCurrent;
     return data;
   }
 }
