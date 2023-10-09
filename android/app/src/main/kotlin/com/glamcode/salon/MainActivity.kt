@@ -1,4 +1,4 @@
-package com.glamcode.app
+package com.glamcode.salon
 
 import io.flutter.embedding.android.FlutterActivity
 
