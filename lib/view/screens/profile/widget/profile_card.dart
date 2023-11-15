@@ -28,9 +28,6 @@ class ProfileCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 30,
-                ),
                 Center(
                   child: Image.network(
                     user.image ??
@@ -46,6 +43,14 @@ class ProfileCard extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
+                Text(
+                  user.id.toString() ?? "",
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+
                 Text(
                   user.formattedMobile ?? "",
                   style: const TextStyle(color: Colors.black54),

@@ -19,7 +19,7 @@ class PackageTile extends StatelessWidget {
           vertical: Dimensions.PADDING_SIZE_SMALL, horizontal: 10),
       child: Card(
         elevation: 6,
-        shadowColor: Color.fromARGB(255, 255, 5, 255),
+        shadowColor: const Color.fromARGB(255, 255, 5, 255),
         borderOnForeground: true,
         margin: const EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -29,7 +29,7 @@ class PackageTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(
                         Dimensions.PADDING_SIZE_DEFAULT,

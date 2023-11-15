@@ -79,6 +79,11 @@ class OngoingBookingsArr {
   OngoingBookingsArr({
     this.userName,
     this.bookingId,
+    this.bookingAssigned, //1
+    this.assignedBookingID,
+    this.beauticianID,
+    this.beauticianName,
+    this.beauticianPhone,
     this.bookingOrderDate,
     this.bookingDate,
     this.bookingTime,
@@ -101,6 +106,13 @@ class OngoingBookingsArr {
   OngoingBookingsArr.fromJson(dynamic json) {
     userName = json['user_name'];
     bookingId = json['booking_id'];
+
+    bookingAssigned = json['bookingAssigned'];
+    assignedBookingID = json['assignedBookingID'];
+    beauticianID = json['beauticianID'];
+    beauticianName = json['beautician_name'];
+    beauticianPhone = json['beautician_phone'];
+
     bookingOrderDate = json['booking_order_date'];
     bookingDate = json['booking_date'];
     bookingTime = json['booking_time'];
@@ -121,6 +133,13 @@ class OngoingBookingsArr {
   }
   String? userName;
   num? bookingId;
+
+  bool? bookingAssigned; //1
+  num? assignedBookingID;
+  num? beauticianID;
+  num? beauticianName;
+  num? beauticianPhone; //5
+
   String? bookingOrderDate;
   String? bookingDate;
   String? bookingTime;
@@ -162,6 +181,11 @@ class OngoingBookingsArr {
       OngoingBookingsArr(
         userName: userName ?? this.userName,
         bookingId: bookingId ?? this.bookingId,
+        bookingAssigned: bookingAssigned ?? this.bookingAssigned,
+        assignedBookingID: assignedBookingID ?? this.assignedBookingID,
+        beauticianID: beauticianID ?? this.beauticianID,
+        beauticianName: beauticianName ?? this.beauticianName,
+        beauticianPhone: beauticianPhone ?? this.beauticianPhone,
         bookingOrderDate: bookingOrderDate ?? this.bookingOrderDate,
         bookingDate: bookingDate ?? this.bookingDate,
         bookingTime: bookingTime ?? this.bookingTime,
@@ -184,6 +208,13 @@ class OngoingBookingsArr {
     final map = <String, dynamic>{};
     map['user_name'] = userName;
     map['booking_id'] = bookingId;
+
+    map['bookingAssigned'] = bookingAssigned;
+    map['assignedBookingID'] = bookingAssigned;
+    map['beauticianID'] = beauticianID;
+    map['beautician_name'] = beauticianName;
+    map['beautician_phone'] = beauticianPhone;
+    
     map['booking_order_date'] = bookingOrderDate;
     map['booking_date'] = bookingDate;
     map['booking_time'] = bookingTime;

@@ -55,6 +55,10 @@ class AppConstants {
   static const String getExtraFees = "$base_url/extrafees";
   static const String bookingDetails = "$base_url/bookingDetails";
   static const String bookingDataFull = "$base_url/booking-datafull";
+  static const String callMasking =
+      "https://panelv2.cloudshope.com/api/click_to_call"; //bearer Token =  289322|fY6HKG25SZnGjqMsy9Y4H896AWCTDJ4GcMI8of4R
+
+
 
   static const String appkeyid =
       r"Qswde@#$@ESCDdreghreiue#%$#^fkjhdhR$$#hvjkdhkdf%^$$#hdgjdf";

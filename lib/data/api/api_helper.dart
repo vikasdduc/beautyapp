@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:glamcode/data/model/additional_fee_model.dart';
 import 'package:glamcode/data/model/addon_model/addon_model.dart';
 import 'package:glamcode/data/model/address_details_model.dart';
@@ -27,6 +29,7 @@ import 'package:glamcode/util/app_constants.dart';
 import 'package:intl/intl.dart';
 
 import '../../view/screens/select_booking/bookingslotmodel.dart';
+import '../model/cancelReschedule.dart';
 import '../model/packages_model/preferred_pack_model.dart';
 
 class DioClient {
@@ -233,14 +236,31 @@ class DioClient {
     try {
       User currentUser = await auth.currentUser;
       print(currentUser.id);
+      // Response bookingsModelData = await _dio.get('$_baseUrl/bookings/10463');
       Response bookingsModelData =
           await _dio.get('$_baseUrl/bookings/${currentUser.id}');
       bookingsModel = BookingsModel.fromJson(bookingsModelData.data);
+      log("bookingmode");
+      log(bookingsModel.ongoingBookingsArr.toString());
     } on DioError catch (e) {
       if (e.response != null) {
       } else {}
     }
     return bookingsModel;
+  }
+
+  deleteUser() async {
+    try {
+      User currentUser = await auth.currentUser;
+      print(currentUser.id);
+      await _dio.get('$_baseUrl/delete-user/${currentUser.id}');
+      //  Response bookingsModelData = await _dio.get('$_baseUrl/bookings/${currentUser.id}');
+
+      log("user Deleted ${currentUser.id}");
+    } on DioError catch (e) {
+      if (e.response != null) {
+      } else {}
+    }
   }
 
   Future<MyCart?> getCart() async {
@@ -455,6 +475,34 @@ class DioClient {
     return paymentResponseModel;
   }
 
+  Future<CancelReschedule?> cancelReschedule(
+      String bookingid, String datetime, String type_exec) async {
+    print("Cancel Reschedule");
+     User currentUser = await auth.currentUser;
+    Map<String, dynamic> jsonData = {
+      "user_id": currentUser.id,
+      "bookingid": bookingid,
+      "date_time":datetime,
+      "type_exec": type_exec
+    };
+    CancelReschedule cancelReschedule = CancelReschedule();
+    try {
+      Response response = await _dio.post(
+        AppConstants.postcancelreschedule,
+        data: jsonData,
+      );
+      cancelReschedule = CancelReschedule.fromJson(response.data);
+      log("Cancel and Reschedule");
+
+      print(response);
+    } on DioError catch (e) {
+      if (e.response != null) {
+      } else {}
+      return null;
+    }
+    return cancelReschedule;
+  }
+
   Future<bool?> sendOtp(String phoneNumber, String referlcode) async {
     Map<String, dynamic> data = {
       "mobile": phoneNumber,
@@ -495,6 +543,51 @@ class DioClient {
       return null;
     }
   }
+  Future<void> callCustomer(BuildContext context, String beauticianPh) async {
+    print("API check");
+      final Auth auth = Auth.instance;
+    User currentUser = await auth.currentUser;
+
+    var data = {
+      "from_number": currentUser.mobile.toString(),
+      "to_number":beauticianPh.toString(),
+    };
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer 289322|fY6HKG25SZnGjqMsy9Y4H896AWCTDJ4GcMI8of4R",
+    };
+
+    try {
+      Response response = await _dio.post(
+        AppConstants.callMasking,
+        data: data,
+        options: Options(headers: headers),
+      );
+
+      print(response.data);
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Connecting..."),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 8),
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Call not connected"),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } on DioError catch (e) {
+      print('Dio Error: $e');
+      return null;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
+
 
   Dio get dio => _dio;
 }
@@ -525,6 +618,7 @@ class TokenInterceptor extends Interceptor {
   }
 }
 
+  
 // Global options
 final options = CacheOptions(
   store: MemCacheStore(),

@@ -6,6 +6,7 @@ import 'package:glamcode/data/repository/payment_repository.dart';
 import 'package:glamcode/util/click_throttle.dart';
 import 'package:glamcode/view/base/error_screen.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../../../blocs/cart/cart_bloc.dart';
 import '../../../blocs/cart_data/cart_data_bloc.dart';
@@ -22,6 +23,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  bool isFinished = false;
   int _selectedOption = -1;
   late Razorpay razorpay;
   PaymentRepository paymentRepository = PaymentRepository();
@@ -146,67 +148,117 @@ class _PaymentScreenState extends State<PaymentScreen> {
           } else if (cartState is CartDataLoaded) {
             return loading
                 ? const SizedBox()
-                : BottomAppBar(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Text(
-                                "Total Price",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "Rs. ${cartState.cartData.amountToPay}",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
+                : Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: SwipeableButtonView(
+                      buttonText:
+                          'Rs. ${cartState.cartData.amountToPay} SLIDE TO PAYMENT',
+                      buttonWidget: Container(
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Colors.grey,
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(
-                                Dimensions.PADDING_SIZE_SMALL),
-                            child: TextButton(
-                                style: TextButton.styleFrom(
-                                    backgroundColor: const Color(0xFFA854FC),
-                                    minimumSize: const Size(double.infinity,
-                                        Dimensions.PADDING_SIZE_DEFAULT),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical:
-                                            Dimensions.PADDING_SIZE_DEFAULT),
-                                    textStyle: TextStyle(
-                                        fontSize:
-                                            Dimensions.fontSizeExtraLarge)),
-                                onPressed: () async {
-                                  if (!clickThrottle.shouldProcessClick()) {
-                                    return;
-                                  }
-                                  if (_selectedOption == 1) {
-                                    setState(() {
-                                      loading = true;
-                                    });
-                                    _bookOrder(cartState.cartData, "");
-                                  } else if (_selectedOption == 0) {
-                                    User user = await Auth.instance.currentUser;
-                                    bool k = _handlePayment(
-                                        cartState.cartData, user);
-                                    if (k) {}
-                                  } else {
-                                    Fluttertoast.showToast(
-                                        msg: "Please select a payment method.",
-                                        gravity: ToastGravity.BOTTOM);
-                                  }
-                                },
-                                child: const Text("Place Request")),
-                          ),
-                        )
-                      ],
+                      ),
+                      activeColor: Color(0xFF009C41),
+                      isFinished: isFinished,
+                      onWaitingProcess: () {
+                        Future.delayed(Duration(seconds: 3), () {
+                          setState(() {
+                            isFinished = true;
+                          });
+                        });
+                      },
+                      onFinish: () async {
+                        // await Navigator.push(context,
+                        //                 PageTransition(
+                        //                     type: PageTransitionType.fade,
+                        //                     child: DashboardScreen()));
+
+                        //TODO: For reverse ripple effect animation
+                        if (!clickThrottle.shouldProcessClick()) {
+                          return;
+                        }
+                        if (_selectedOption == 1) {
+                          setState(() {
+                            loading = true;
+                          });
+                          _bookOrder(cartState.cartData, "");
+                        } else if (_selectedOption == 0) {
+                          User user = await Auth.instance.currentUser;
+                          bool k = _handlePayment(cartState.cartData, user);
+                          if (k) {}
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Please select a payment method.",
+                              gravity: ToastGravity.BOTTOM);
+                        }
+                        setState(() {
+                          isFinished = false;
+                        });
+                      },
                     ),
                   );
+            // : BottomAppBar(
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Expanded(
+            //           child: Column(
+            //             mainAxisSize: MainAxisSize.min,
+            //             children: [
+            //               const Text(
+            //                 "Total Price",
+            //                 style: TextStyle(fontWeight: FontWeight.bold),
+            //               ),
+            //               Text(
+            //                 "Rs. ${cartState.cartData.amountToPay}",
+            //                 style: const TextStyle(
+            //                     fontWeight: FontWeight.bold),
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //         Expanded(
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(
+            //                 Dimensions.PADDING_SIZE_SMALL),
+            //             child: TextButton(
+            //                 style: TextButton.styleFrom(
+            //                     backgroundColor: const Color(0xFFA854FC),
+            //                     minimumSize: const Size(double.infinity,
+            //                         Dimensions.PADDING_SIZE_DEFAULT),
+            //                     padding: const EdgeInsets.symmetric(
+            //                         vertical:
+            //                             Dimensions.PADDING_SIZE_DEFAULT),
+            //                     textStyle: TextStyle(
+            //                         fontSize:
+            //                             Dimensions.fontSizeExtraLarge)),
+            //                 onPressed: () async {
+            //                   if (!clickThrottle.shouldProcessClick()) {
+            //                     return;
+            //                   }
+            //                   if (_selectedOption == 1) {
+            //                     setState(() {
+            //                       loading = true;
+            //                     });
+            //                     _bookOrder(cartState.cartData, "");
+            //                   } else if (_selectedOption == 0) {
+            //                     User user = await Auth.instance.currentUser;
+            //                     bool k = _handlePayment(
+            //                         cartState.cartData, user);
+            //                     if (k) {}
+            //                   } else {
+            //                     Fluttertoast.showToast(
+            //                         msg: "Please select a payment method.",
+            //                         gravity: ToastGravity.BOTTOM);
+            //                   }
+            //                 },
+            //                 child: const Text("Place Request")),
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   );
           } else {
             return const CustomError();
           }

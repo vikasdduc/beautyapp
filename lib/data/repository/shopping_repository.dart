@@ -91,11 +91,24 @@ class ShoppingRepository {
     }
   }
 
+  Future<List<AddonDatum>> clearSharePrefs() async {
+    List<AddonDatum> addonList = [];
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setStringList("addons", addonListEncode(addonList));
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+    return addonList;
+  }
+
   Future<List<AddonDatum>> loadAddonItems() async {
     List<AddonDatum> addonList = [];
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.containsKey("addons")) {
+        prefs.setStringList("addons", addonListEncode(addonList));
         List<String> addonStringList = prefs.getStringList("addons") ?? [];
         addonList = addonListDecode(addonStringList);
       } else {
@@ -114,6 +127,7 @@ class ShoppingRepository {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (addonDatum != null) {
         if (prefs.containsKey("addons")) {
+          prefs.setStringList("addons", addonListEncode(addonList));
           addonList = addonListDecode(prefs.getStringList("addons") ?? []);
           if (addonList.contains(addonDatum) == false) {
             addonList.add(addonDatum);

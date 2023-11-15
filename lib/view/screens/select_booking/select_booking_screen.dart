@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glamcode/data/api/api_helper.dart';
 import 'package:glamcode/view/base/error_screen.dart';
+import 'package:glamcode/view/screens/cart/cart_screen.dart';
 import 'package:glamcode/view/screens/select_booking/bookingslotmodel.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -148,7 +149,7 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                                   log("${timeSlot}");
                                 },
                                 // child: timeSlot == "${(slotArray[index].date)}${slotArray[index].slotStartTime}"
-                                child: (slotArray[index].isCurrent == false)
+                                child: (slotArray[index].isCurrent == true)
                                     ? (selectedDateTime ==
                                             "${slotArray[index].date!} ${slotArray[index].otherDate}"
                                         ? Card(
@@ -172,7 +173,18 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                                               ),
                                             ),
                                           ))
-                                    : Container(),
+                                    : const Card(
+                                        color: const Color(0xFFd9bef4),
+                                        child: Center(
+                                            child: Text(
+                                          // (slotArray[index]
+                                          //         .slotStartTime) ??
+                                          "Not Available",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 10),
+                                        )),
+                                      ),
                               );
                             });
                       } else {
@@ -206,7 +218,9 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "Rs. ${cartState.cartData.originalAmount}",
+                          //state.cartData.amountToPay!
+                          // .toStringAsFixed(2)
+                          "Rs. ${cartState.cartData.amountToPay.toString()}",
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
@@ -232,11 +246,17 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                           if (cartState.cartData.bookingDateTime != null &&
                               cartState.cartData.bookingDateTime != "") {
                             // Navigator.pushNamed(context, '/cart');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PaymentScreen()));
+                            
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             const PaymentScreen()));
+                                         Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => const CartScreen()));
+
                             //was builder: (context) => const cartScreen()));
                             // Navigator.pushNamed(context, '/payment');
                           } else {

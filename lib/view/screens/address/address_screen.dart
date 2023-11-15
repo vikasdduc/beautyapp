@@ -11,6 +11,7 @@ import '../../base/custom_divider.dart';
 import '../../base/loading_screen.dart';
 import '../cart/cart_screen.dart';
 import '../home/map_location/searchLocationMap.dart';
+import 'getuserlocationmapscreen.dart';
 
 class AddressDetailsScreen extends StatefulWidget {
   const AddressDetailsScreen({Key? key}) : super(key: key);
@@ -31,9 +32,9 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("SELECT ADDRESS"),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("SELECT ADDRESS"),
+      // ),
       body: FutureBuilder<AddressDetailsModel?>(
         future: _future,
         builder: (context, snapshot) {
@@ -60,12 +61,25 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                         //     ),
                         //   ),
                         // );
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => SearchLocationScreen(
+                        //               edit: false,
+                        //               addressDetails: AddressDetails(),
+                        //             )));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SearchLocationScreen(
-                                      edit: false,
-                                      addressDetails: AddressDetails(),
+                                builder: (context) => GetUserLocationScreen(
+                                      address:
+                                          addressList[0].address.toString(),
+                                      locAddress:
+                                          addressList[0].address.toString(),
+                                      latitude:
+                                          addressList[0].lattitude!.toDouble(),
+                                      longitude:
+                                          addressList[0].lattitude!.toDouble(),
                                     )));
                       },
                       //   showDialog(
@@ -177,44 +191,11 @@ class _AddressTileState extends State<AddressTile> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.addressDetails.addressHeading ?? "",
-                    style: TextStyle(fontSize: Dimensions.fontSizeExtraLarge),
-                  ),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => EditAddressScreen(
-                                  addressDetails: widget.addressDetails)));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.edit,
-                            size: Dimensions.fontSizeOverLarge,
-                          ),
-                        ),
-                      ),
-                      loading
-                          ? const CircularProgressIndicator(color: Colors.black)
-                          : InkWell(
-                              onTap: () {
-                                setState(() {
-                                  loading = true;
-                                });
-                                DioClient.instance.deleteAddress(
-                                    widget.addressDetails.addressId?.toInt() ??
-                                        0);
-                              },
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.delete_outline_outlined),
-                              ),
-                            ),
-                    ],
-                  ),
+                  // Text(
+                  //   widget.addressDetails.addressHeading ?? "",
+                  //   style: TextStyle(fontSize: Dimensions.fontSizeExtraLarge),
+                  //   overflow: TextOverflow.ellipsis,
+                  // ),
                 ],
               ),
             ),
@@ -227,6 +208,39 @@ class _AddressTileState extends State<AddressTile> {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EditAddressScreen(
+                            addressDetails: widget.addressDetails)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.edit,
+                      size: Dimensions.fontSizeOverLarge,
+                    ),
+                  ),
+                ),
+                loading
+                    ? const CircularProgressIndicator(color: Colors.black)
+                    : InkWell(
+                        onTap: () {
+                          setState(() {
+                            loading = true;
+                          });
+                          DioClient.instance.deleteAddress(
+                              widget.addressDetails.addressId?.toInt() ?? 0);
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(Icons.delete_outline_outlined),
+                        ),
+                      ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -236,7 +250,9 @@ class _AddressTileState extends State<AddressTile> {
                       children: [
                         const Icon(Icons.phone),
                         Text(
-                            "${widget.addressDetails.callingCode ?? ""} ${widget.addressDetails.mobileNumber ?? ""}"),
+                          "${widget.addressDetails.callingCode ?? ""} ${widget.addressDetails.mobileNumber ?? ""}",
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
                   ),

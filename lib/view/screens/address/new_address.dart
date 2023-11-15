@@ -129,13 +129,15 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                                       //         builder: (context) =>
                                       //             const CartScreen()),
                                       //     ModalRoute.withName('/index'));
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DashboardScreen(
-                                                      pageIndex: 0)),
-                                          ModalRoute.withName('/index'));
+                                      // Navigator.pushAndRemoveUntil(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             DashboardScreen(
+                                      //                 pageIndex: 0)),
+                                      //     ModalRoute.withName('/index'));
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

@@ -83,57 +83,72 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
             height: 50,
           ),
           if (bookingResponse.coupon != null) ...[
-            Scratcher(
-              brushSize: 30,
-              threshold: 50,
-              color: Color.fromARGB(255, 16, 115, 255),
-              onChange: (value) => print("Scratch progress: $value%"),
-              onThreshold: () => print("Threshold reached, you won!"),
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadiusDirectional.circular(20),
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 254, 127, 116),
-                      Color.fromARGB(255, 251, 5, 5)
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+            Container(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(50)),
+              child: Scratcher(
+                image: const Image(
+                  image: AssetImage(
+                    'assets/images/background.png',
                   ),
                 ),
-                child: Column(children: [
-                  const SizedBox(
-                    height: 15,
+                brushSize: 30,
+                threshold: 50,
+                // color: Color.fromARGB(255, 16, 115, 255),
+                onChange: (value) => print("Scratch progress: $value%"),
+                onThreshold: () => print("Threshold reached, you won!"),
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    // image: const DecorationImage(
+                    //   image: AssetImage(
+                    //     'assets/images/background.png',
+                    //   ),
+                    //   fit: BoxFit.cover,
+                    // ),
+                    borderRadius: BorderRadiusDirectional.circular(20),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 254, 127, 116),
+                        Color.fromARGB(255, 251, 5, 5)
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
                   ),
-                  const Text(
-                    // "🎁",
-                    // "🎊",
-                    "🎉",
-                    style: TextStyle(
-                        fontSize: 70,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 255, 255, 0)),
-                  ), //🎊🎁
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    "You've won",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "${bookingResponse.coupon?.points.toString()} points",
-                    style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 250, 230, 10)),
-                  )
-                ]),
+                  child: Column(children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text(
+                      // "🎁",
+                      // "🎊",
+                      "🎉",
+                      style: TextStyle(
+                          fontSize: 70,
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 255, 255, 0)),
+                    ), //🎊🎁
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text(
+                      "You've won",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    Text(
+                      "${bookingResponse.coupon?.points.toString()} points",
+                      style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 250, 230, 10)),
+                    )
+                  ]),
+                ),
               ),
             ),
             // Card(
@@ -179,7 +194,7 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
           //     child: _buildFlipAnimation(bookingResponse)),
           // ],
           const SizedBox(
-            height: 20,
+            height: 70,
           ),
           // Card(
           //     elevation: 5,
@@ -195,9 +210,6 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
           //       ),
           //     )),
 
-          const SizedBox(
-            height: 100,
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

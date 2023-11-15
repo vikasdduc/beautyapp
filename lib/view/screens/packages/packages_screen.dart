@@ -99,7 +99,7 @@ class _PackagesScreenState extends State<PackagesScreen>
                   isScrollable: true,
                   indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Color.fromARGB(0, 255, 255, 255)),
+                      color: const Color.fromARGB(0, 255, 255, 255)),
                   tabs: tabTitles,
                   onTap: (int index) {
                     _pageController.jumpToPage(index);
@@ -117,7 +117,7 @@ class _PackagesScreenState extends State<PackagesScreen>
                 },
               ),
               floatingActionButton: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(30),
                 child: FloatingActionButton.extended(
                   onPressed: () {
                     showDialog(
@@ -128,14 +128,14 @@ class _PackagesScreenState extends State<PackagesScreen>
                                 Dimensions.PADDING_SIZE_DEFAULT),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    20)), //this right here
+                                    30)), //this right here
                             child: const SizedBox(child: ServicesGrid()),
                           );
                         });
                   },
                   label: const Text("Menu"),
                   icon: const Icon(
-                    Icons.grid_view_rounded,
+                    Icons.menu,
                     color: Color(0xFFAB54FC),
                   ),
                 ),

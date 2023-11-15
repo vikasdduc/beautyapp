@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:glamcode/data/api/api_helper.dart';
 import 'package:glamcode/data/model/packages_model/service.dart';
 import 'package:glamcode/data/model/packages_model/preferred_pack_model.dart';
-import 'package:glamcode/util/dimensions.dart';
-import 'package:glamcode/view/base/error_screen.dart';
 import 'package:glamcode/view/base/package_tile.dart';
 
 class Packages extends StatefulWidget {
@@ -27,23 +25,26 @@ class _PackagesState extends State<Packages> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-     const   Divider(),
-      const  Center(
+        const Divider(),
+        const Center(
           child: Text(
             "Offers & Deals ",
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.w800, color: Colors.black),
           ),
         ),
-       const Divider(),
+        const Divider(
+          height: 10,
+        ),
         FutureBuilder<PreferredPackModel?>(
             future: _future,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                    child: CircularProgressIndicator(
-                  color: Color(0xFFA854FC),
-                ));
+                // return const Center(
+                //     child: CircularProgressIndicator(
+                //   color: Color(0xFFA854FC),
+                // ));
+                return dummyListviewCell();
               } else if (snapshot.connectionState == ConnectionState.done) {
                 PreferredPackModel preferredPackData =
                     const PreferredPackModel();
@@ -71,4 +72,71 @@ class _PackagesState extends State<Packages> {
       ],
     );
   }
+}
+
+Widget dummyListviewCell() {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10.0, top: 15),
+    child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+      Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              height: 8,
+              color: Colors.white,
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              height: 8.0,
+              color: Colors.white,
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              height: 8.0,
+              color: Colors.white,
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              height: 8.0,
+              color: Colors.white,
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              height: 8.0,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      )),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 100.0,
+          height: 100.0,
+          color: Colors.white,
+        ),
+      ),
+    ]),
+  );
 }

@@ -33,6 +33,7 @@ class _AddonsScreenState extends State<AddonsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text("SELECT ADD-ONS"),
       ),
       body: FutureBuilder<AddonModel?>(
@@ -44,7 +45,6 @@ class _AddonsScreenState extends State<AddonsScreen> {
             AddonModel addonData = const AddonModel();
             if (snapshot.hasData) {
               addonData = snapshot.data!;
-
               List<AddonDatum> addonList = addonData.addonData ?? [];
               return BlocBuilder<AddonBloc, AddonState>(
                 builder: (context, state) {
@@ -55,13 +55,7 @@ class _AddonsScreenState extends State<AddonsScreen> {
                       shrinkWrap: true,
                       itemCount: addonList.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          isThreeLine: false,
-                          dense: true,
-                          style: ListTileStyle.drawer,
-                          tileColor: state.addonList.contains(addonList[index])
-                              ? const Color(0xFFA854FC)
-                              : Colors.white,
+                        return InkWell(
                           onTap: () {
                             setState(() {
                               state.addonList.contains(addonList[index])
@@ -73,30 +67,88 @@ class _AddonsScreenState extends State<AddonsScreen> {
                                       .add(AddonItemAdded(addonList[index]));
                             });
                           },
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "${addonList[index].name}",
-                                style: TextStyle(
-                                    fontSize: Dimensions.fontSizeLarge,
-                                    color: state.addonList
-                                            .contains(addonList[index])
-                                        ? Colors.white
-                                        : Colors.black),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            // color: Colors.white,
+                            color: (state.addonList.contains(addonList[index])
+                                ? const Color(0xFFA854FC)
+                                : Colors.white),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${addonList[index].name}",
+                                    style: TextStyle(
+                                        fontSize: Dimensions.fontSizeLarge,
+                                        color: state.addonList
+                                                .contains(addonList[index])
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                  Text(
+                                    "₹${addonList[index].price}",
+                                    style: TextStyle(
+                                        fontSize: Dimensions.fontSizeLarge,
+                                        color: state.addonList
+                                                .contains(addonList[index])
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "₹${addonList[index].price}",
-                                style: TextStyle(
-                                    fontSize: Dimensions.fontSizeLarge,
-                                    color: state.addonList
-                                            .contains(addonList[index])
-                                        ? Colors.white
-                                        : Colors.black),
-                              ),
-                            ],
+                            ),
                           ),
                         );
+                        // return Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: ListTile(
+                        //     isThreeLine: false,
+                        //     dense: true,
+                        //     style: ListTileStyle.drawer,
+                        //     tileColor:
+                        //         state.addonList.contains(addonList[index])
+                        //             ? const Color(0xFFA854FC)
+                        //             : Colors.white,
+                        //     onTap: () {
+                        //       setState(() {
+                        //         state.addonList.contains(addonList[index])
+                        //             ? context
+                        //                 .read<AddonBloc>()
+                        //                 .add(AddonItemRemoved(addonList[index]))
+                        //             : context
+                        //                 .read<AddonBloc>()
+                        //                 .add(AddonItemAdded(addonList[index]));
+                        //       });
+                        //     },
+                        //     title: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //       children: [
+                        //         Text(
+                        //           "${addonList[index].name}",
+                        //           style: TextStyle(
+                        //               fontSize: Dimensions.fontSizeLarge,
+                        //               color: state.addonList
+                        //                       .contains(addonList[index])
+                        //                   ? Colors.white
+                        //                   : Colors.black),
+                        //         ),
+                        //         Text(
+                        //           "₹${addonList[index].price}",
+                        //           style: TextStyle(
+                        //               fontSize: Dimensions.fontSizeLarge,
+                        //               color: state.addonList
+                        //                       .contains(addonList[index])
+                        //                   ? Colors.white
+                        //                   : Colors.black),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // );
                       },
                     );
                   } else {
@@ -150,10 +202,12 @@ class _AddonsScreenState extends State<AddonsScreen> {
                             textStyle: TextStyle(
                                 fontSize: Dimensions.fontSizeExtraLarge)),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => const CartScreen()));
+                          // Navigator.push(
+                          //     context,
+                          //     CupertinoPageRoute(
+                          //         builder: (context) => const CartScreen()));
+                                  Navigator.pushNamed(context,
+                                                        '/booking-data');
                         },
                         child: const Text("Next")),
                   ))

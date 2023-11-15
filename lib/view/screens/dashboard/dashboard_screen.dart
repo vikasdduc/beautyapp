@@ -82,6 +82,7 @@ class DashboardScreenState extends State<DashboardScreen> {
         context,
         Icons.person_outlined,
         "Profile",
+        
       )
     ];
 
@@ -106,6 +107,8 @@ class DashboardScreenState extends State<DashboardScreen> {
                   style: TextStyle(color: Colors.white)),
               behavior: SnackBarBehavior.floating,
               backgroundColor: Color(0xFF882EDF),
+            
+
               duration: Duration(seconds: 2),
               margin: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
             ));

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glamcode/screen_size.dart';
@@ -5,6 +6,7 @@ import 'package:glamcode/screen_size.dart';
 import '../../blocs/cart/cart_bloc.dart';
 import '../../blocs/cart_data/cart_data_bloc.dart';
 import '../../util/dimensions.dart';
+import '../screens/cart/cart_screen.dart';
 
 class BottomServiceBar extends StatelessWidget {
   const BottomServiceBar({Key? key}) : super(key: key);
@@ -126,7 +128,7 @@ class BottomServiceBar extends StatelessWidget {
                                                   //     context,
                                                   //     CupertinoPageRoute(
                                                   //         builder: (context) =>
-                                                  //             CartScreen()));
+                                                  //           const  CartScreen()));
                                                   // if (primaryAddressDetails !=
                                                   //     null) {
                                                   //   Navigator.pushNamed(

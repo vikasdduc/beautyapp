@@ -18,6 +18,8 @@ class ChatRoom extends StatefulWidget {
   final UserModel? targetUser;
   final ChatRoomModel? chartRoomModel;
   final String bookingId;
+  final String beauticianId;
+  final String beauticianName;
 
   //beautician Id
   //beautician Name
@@ -26,7 +28,7 @@ class ChatRoom extends StatefulWidget {
       {super.key,
       this.targetUser,
       this.chartRoomModel,
-      required this.bookingId});
+      required this.bookingId, required this.beauticianId, required this.beauticianName});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -76,7 +78,7 @@ class _ChatRoomState extends State<ChatRoom> {
             const SizedBox(
               width: 10,
             ),
-            Text("Booking Id " + widget.bookingId.toString())
+            Text(widget.beauticianName)
             // Text("widget.targetUser.fullname.toString()"),
           ],
         ),
@@ -109,7 +111,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                     as Map<String, dynamic>);
                             return Row(
                               mainAxisAlignment:
-                                  (currentMessage.sender == "123")
+                                  (currentMessage.sender == widget.beauticianId)
                                       ? MainAxisAlignment.start
                                       : MainAxisAlignment.end,
                               children: [
@@ -121,7 +123,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                           vertical: 10, horizontal: 10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: (currentMessage.sender == "123")
+                                        color: (currentMessage.sender == widget.beauticianId)
                                             ? Colors.pink
                                             : Colors.blue,
                                       ),
@@ -134,13 +136,13 @@ class _ChatRoomState extends State<ChatRoom> {
                                                 color: Colors.white,
                                                 child: Column(
                                                   children: [
-                                                    SizedBox(
+                                                  const SizedBox(
                                                       height: 50,
                                                     ),
                                                     InkWell(
                                                         onTap: () {},
                                                         child: const Text(
-                                                          "view Location",
+                                                          "View Location",
                                                           style: TextStyle(
                                                               fontSize: 20,
                                                               fontWeight:

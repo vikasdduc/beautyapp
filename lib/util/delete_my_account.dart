@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:glamcode/data/api/api_helper.dart';
 
 import '../blocs/auth/auth_bloc.dart';
+import '../blocs/cart/cart_bloc.dart';
 import '../home.dart';
 
 class DeleteMyAccount extends StatefulWidget {
@@ -13,6 +15,7 @@ class DeleteMyAccount extends StatefulWidget {
 }
 
 class _DeleteMyAccountState extends State<DeleteMyAccount> {
+  DioClient dio = DioClient.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +29,13 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
             child: Center(
                 child: CupertinoButton(
                     color: Colors.red,
-                    child: const Text("Confirm Delete",
-                style: TextStyle(color: Colors.white),),
+                    child: const Text(
+                      "Confirm Delete",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onPressed: () {
+                      dio.deleteUser();
+                      context.read<CartBloc>().add(CartCleared());
                       final AuthBloc authBloc = context.read<AuthBloc>();
                       authBloc.userRepository.signOut();
                       authBloc.add(AppLoaded());

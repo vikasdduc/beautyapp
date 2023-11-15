@@ -19,6 +19,7 @@ import '../../../../util/dimensions.dart';
 import '../../../base/custom_divider.dart';
 import '../../../base/loading_screen.dart';
 import '../../address/address_screen.dart';
+import '../../address/getuserlocationmapscreen.dart';
 
 class SearchLocationScreen extends StatefulWidget {
   final bool edit;
@@ -124,9 +125,10 @@ class _SearchLocationScreenState extends State<SearchLocationScreen> {
       setState(() {
         showSpinner = false;
       });
+      Navigator.pop(context);
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => NewAddressScreen(
+          builder: (context) => GetUserLocationScreen(
             address: first.toString(),
             locAddress: first.toString(),
             latitude: value.latitude,
@@ -138,13 +140,15 @@ class _SearchLocationScreenState extends State<SearchLocationScreen> {
   }
 
   move(String address, String locAddress, num lat, num long) {
+    Navigator.pop(context);
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => NewAddressScreen(
-            address: address,
-            locAddress: locAddress,
-            latitude: num.parse(lat.toString()),
-            longitude: num.parse(long.toString())),
+        builder: (context) => GetUserLocationScreen(
+          address: address,
+          locAddress: locAddress,
+          latitude: lat.toDouble(),
+          longitude: long.toDouble(),
+        ),
       ),
     );
   }

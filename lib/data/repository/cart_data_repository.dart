@@ -38,6 +38,7 @@ class CartDataRepository {
     try {
       await Auth.instance.currentUser.then((value) => userId = value.id);
       originalAmount = shoppingRepository.getTotalPrice();
+      
       couponRepository.currentCoupon.then((value) {
         couponId = value.id;
         if (value.amount == null) {
@@ -84,6 +85,7 @@ class CartDataRepository {
           taxPercent: taxPercent,
           extraFees: extraFees,
           amountToPay: amountToPay.round());
+          shoppingRepository.clearSharePrefs();
       return cartData;
     } catch (e) {
       print(e);

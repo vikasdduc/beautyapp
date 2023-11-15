@@ -21,6 +21,7 @@ import '../../../data/model/address_details_model.dart';
 import '../../base/loading_screen.dart';
 import '../address/selectnew_address.dart';
 import '../home/map_location/searchLocationMap.dart';
+import '../payment/payment_screen.dart';
 
 int checkedauth = 0;
 
@@ -116,65 +117,143 @@ class _CartScreenState extends State<CartScreen> {
                             child: cart.isNotEmpty
                                 ? Column(
                                     children: [
-                                      const CustomDivider(),
-                                      primaryAddressDetails != null
-                                          ? ListTile(
-                                              tileColor: Colors.white,
-                                              title: Text(
-                                                primaryAddressDetails
-                                                        .addressHeading ??
-                                                    "",
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              subtitle: Text(
-                                                primaryAddressDetails.street ??
-                                                    "",
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              leading: const Icon(
-                                                  Icons.location_on_outlined),
-                                              trailing: TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const AddressDetailsScreen()));
-                                                },
-                                                style: ButtonStyle(
-                                                  minimumSize:
-                                                      MaterialStateProperty.all(
-                                                    const Size(0, 0),
-                                                  ),
-                                                  padding:
-                                                      MaterialStateProperty.all(
-                                                    const EdgeInsets.all(
-                                                      Dimensions
-                                                          .PADDING_SIZE_SMALL,
-                                                    ),
-                                                  ),
+                                      // const CustomDivider(),
+
+                                      primaryAddressDetails != null ||
+                                              addressList[0].address != null
+                                          ? InkWell(
+                                              onTap: () {
+                                                // Navigator.of(context).push(
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) =>
+                                                //             const AddressDetailsScreen()));
+                                                showModalBottomSheet(
+                                                    isScrollControlled: true,
+                                                    useSafeArea: true,
+                                                    enableDrag: true,
+                                                    showDragHandle: true,
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        12),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        12))),
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return StatefulBuilder(
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              StateSetter
+                                                                  setstate) {
+                                                        return AddressDetailsScreen();
+                                                      });
+                                                    });
+                                              },
+                                              child: ListTile(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                              30,
+                                                            ),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    30))),
+                                                tileColor: Colors.white,
+                                                // title: Text(addressList[0]
+                                                //     .address
+                                                //     .toString()),
+                                                title: Text(
+                                                  primaryAddressDetails
+                                                          ?.addressHeading ??
+                                                      addressList[0]
+                                                          .address
+                                                          .toString() ??
+                                                      "",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
-                                                child: Text(
-                                                  "Change",
-                                                  style: TextStyle(
-                                                    fontSize: Dimensions
-                                                        .fontSizeDefault,
-                                                  ),
+                                                subtitle: Text(
+                                                  primaryAddressDetails
+                                                          ?.street ??
+                                                      addressList[0]
+                                                          .address
+                                                          .toString() ??
+                                                      "",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
+                                                leading: const Icon(
+                                                    Icons.location_on_outlined),
+                                                trailing:
+                                                    Icon(Icons.arrow_drop_down),
+                                                // trailing: TextButton(
+                                                //   onPressed: () {
+                                                //     Navigator.of(context).push(
+                                                //         MaterialPageRoute(
+                                                //             builder: (context) =>
+                                                //                 const AddressDetailsScreen()));
+                                                //   },
+                                                //   style: ButtonStyle(
+                                                //     minimumSize:
+                                                //         MaterialStateProperty.all(
+                                                //       const Size(0, 0),
+                                                //     ),
+                                                //     padding:
+                                                //         MaterialStateProperty.all(
+                                                //       const EdgeInsets.all(
+                                                //         Dimensions
+                                                //             .PADDING_SIZE_SMALL,
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                //   child: Text(
+                                                //     "Change",
+                                                //     style: TextStyle(
+                                                //       fontSize: Dimensions
+                                                //           .fontSizeDefault,
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                dense: true,
+                                                minLeadingWidth: 0,
                                               ),
-                                              dense: true,
-                                              minLeadingWidth: 0,
                                             )
                                           : InkWell(
                                               onTap: () {
+                                                setState(() {});
                                                 print("currentUser!.id");
                                                 if (currentUser!.id == 0) {
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                          context, '/index');
+                                                  // Navigator
+                                                  //     .pushReplacementNamed(
+                                                  //         context, '/index');
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SearchLocationScreen(
+                                                                edit: false,
+                                                                addressDetails:
+                                                                    AddressDetails(),
+                                                              )));
                                                 } else {
                                                   if (currentUser!.id != 0) {
-                                                    Navigator.of(context)
-                                                        .pushNamed('/address');
+                                                    // Navigator.of(context)
+                                                    //     .pushNamed('/address');
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                SearchLocationScreen(
+                                                                  edit: false,
+                                                                  addressDetails:
+                                                                      AddressDetails(),
+                                                                )));
                                                   }
                                                   if (primaryAddressDetails ==
                                                       null) {
@@ -186,7 +265,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     //                 edit: false,
                                                     //                 addressDetails:
                                                     //                     AddressDetails())));
-                                                     Navigator.push(
+                                                    Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
@@ -196,8 +275,6 @@ class _CartScreenState extends State<CartScreen> {
                                                                       AddressDetails(),
                                                                 )));
                                                   }
-                                                  Navigator.of(context)
-                                                      .pushNamed('/address');
                                                 }
                                               },
                                               child: Padding(
@@ -214,7 +291,6 @@ class _CartScreenState extends State<CartScreen> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        const Icon(Icons.add),
                                                         Text(
                                                           (currentUser?.id != 0)
                                                               ? ("Select an address")
@@ -311,12 +387,24 @@ class _CartScreenState extends State<CartScreen> {
                                                         .originalAmount! >=
                                                     cartState
                                                         .cartData.mincheck!) {
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (context) =>
+                                                  //             SearchLocationScreen(
+                                                  //               edit: false,
+                                                  //               addressDetails:
+                                                  //                   AddressDetails(),
+                                                  //             )));
                                                   if (primaryAddressDetails !=
                                                       null) {
                                                     // Navigator.pushNamed(
                                                     //     context, '/payment');
-                                                    Navigator.pushNamed(context,
-                                                        '/booking-data');
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const PaymentScreen()));
                                                   } else {
                                                     ScaffoldMessenger.of(
                                                             context)
@@ -339,7 +427,8 @@ class _CartScreenState extends State<CartScreen> {
                                                 }
                                               }
                                             },
-                                            child: const Text("Next")),
+                                            child:
+                                                const Text("Procees to Pay")),
                                       ))
                                     ],
                                   ),
@@ -553,13 +642,14 @@ class _PriceDetailsState extends State<PriceDetails> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(
-                                  Dimensions.PADDING_SIZE_SMALL),
-                              child: Text(
-                                  // double.parse(
-                                  //       state.cartData.amountToPay.toStringAsFixed(2))
-                                  "${state.cartData.amountToPay}"),
-                            ),
+                                padding: const EdgeInsets.all(
+                                    Dimensions.PADDING_SIZE_SMALL),
+                                child: Text(
+                                    // double.parse(
+                                    state.cartData.amountToPay!
+                                        .toStringAsFixed(2))
+                                // "${state.cartData.amountToPay}"),
+                                ),
                           ],
                         )
                       ]),
