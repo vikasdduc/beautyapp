@@ -512,7 +512,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 1.2.8;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = LVZ4B83H7A;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -522,8 +522,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.8;
-				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.app;
+				MARKETING_VERSION = 1.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.luxuryFlutter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -699,7 +699,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 1.2.8;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = LVZ4B83H7A;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -709,8 +709,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.8;
-				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.app;
+				MARKETING_VERSION = 1.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.luxuryFlutter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -730,7 +730,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 1.2.8;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = LVZ4B83H7A;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -740,8 +740,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.8;
-				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.app;
+				MARKETING_VERSION = 1.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = in.glamcode.luxuryFlutter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -1,11 +1,11 @@
 import 'dart:math';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glamcode/data/model/payments/PaymentResponse.dart';
 import 'package:glamcode/screen_size.dart';
 import 'package:glamcode/view/refertoearn/invitetoearn.dart';
-import 'package:glamcode/view/refertoearn/referalmodel.dart';
 import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
 import 'package:scratcher/widgets.dart';
 
@@ -20,9 +20,19 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
   late bool _showFrontSide;
   late bool _flipXAxis;
 
+  updatecon() {
+    FirebaseAnalytics.instance.setCurrentScreen(
+        screenName: "VisitedConfirmPageScreen",
+        screenClassOverride: "VisitedConfirmPageScreen");
+    FirebaseAnalytics.instance
+        .logEvent(name: "Visited_Last_ConfirmationPageScreen");
+    print("Analytics log that user has visited Confirmation Page");
+  }
+
   @override
   void initState() {
     super.initState();
+    updatecon();
     _showFrontSide = true;
     _flipXAxis = true;
   }
