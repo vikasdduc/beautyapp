@@ -30,6 +30,7 @@ import 'package:intl/intl.dart';
 
 import '../../view/screens/select_booking/bookingslotmodel.dart';
 import '../model/cancelReschedule.dart';
+import '../model/checkUserExist.dart';
 import '../model/packages_model/preferred_pack_model.dart';
 
 class DioClient {
@@ -478,11 +479,11 @@ class DioClient {
   Future<CancelReschedule?> cancelReschedule(
       String bookingid, String datetime, String type_exec) async {
     print("Cancel Reschedule");
-     User currentUser = await auth.currentUser;
+    User currentUser = await auth.currentUser;
     Map<String, dynamic> jsonData = {
       "user_id": currentUser.id,
       "bookingid": bookingid,
-      "date_time":datetime,
+      "date_time": datetime,
       "type_exec": type_exec
     };
     CancelReschedule cancelReschedule = CancelReschedule();
@@ -524,6 +525,9 @@ class DioClient {
     return true;
   }
 
+
+
+
   Future<User?> verifyOtp(String otp, String phoneNumber) async {
     Map<String, dynamic> data = {
       "calling_code": "+91",
@@ -543,14 +547,15 @@ class DioClient {
       return null;
     }
   }
+
   Future<void> callCustomer(BuildContext context, String beauticianPh) async {
     print("API check");
-      final Auth auth = Auth.instance;
+    final Auth auth = Auth.instance;
     User currentUser = await auth.currentUser;
 
     var data = {
       "from_number": currentUser.mobile.toString(),
-      "to_number":beauticianPh.toString(),
+      "to_number": beauticianPh.toString(),
     };
 
     Map<String, String> headers = {
@@ -587,8 +592,6 @@ class DioClient {
     }
   }
 
-
-
   Dio get dio => _dio;
 }
 
@@ -618,7 +621,6 @@ class TokenInterceptor extends Interceptor {
   }
 }
 
-  
 // Global options
 final options = CacheOptions(
   store: MemCacheStore(),

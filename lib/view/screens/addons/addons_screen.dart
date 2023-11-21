@@ -23,6 +23,8 @@ class _AddonsScreenState extends State<AddonsScreen> {
   final int _selectedIndex = 0;
   late Future<AddonModel?> _future;
 
+ 
+
   @override
   void initState() {
     _future = DioClient.instance.getAddons();

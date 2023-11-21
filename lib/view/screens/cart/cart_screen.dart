@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glamcode/blocs/cart_data/cart_data_bloc.dart';
@@ -13,15 +17,20 @@ import 'package:glamcode/view/base/package_tile.dart';
 import 'package:glamcode/view/screens/address/address_screen.dart';
 import 'package:glamcode/view/screens/address/select_address.dart';
 import 'package:glamcode/view/screens/coupon/coupon_screen.dart';
+import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
+import 'package:glamcode/view/screens/login/login_screen.dart';
 
 import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/cart/cart_bloc.dart';
 import '../../../data/api/api_helper.dart';
 import '../../../data/model/address_details_model.dart';
+import '../../../data/model/checkUserExist.dart';
+import '../../../home.dart';
 import '../../base/loading_screen.dart';
 import '../address/selectnew_address.dart';
 import '../home/map_location/searchLocationMap.dart';
 import '../payment/payment_screen.dart';
+import 'package:http/http.dart' as http;
 
 int checkedauth = 0;
 
@@ -34,19 +43,63 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   late Future<AddressDetailsModel?> _future;
+  DioClient dio = DioClient.instance;
   bool useWallet = true;
   late final AuthBloc authBloc;
   late User user;
   late CheckForAuth checkForAuth;
   User? currentUser;
-
-  //For only to hide Bottom Service bar
-  final ScrollController scrollController = new ScrollController();
-  bool scroll_visibility = true;
+  String? checkUserString;
 
   initialize() async {
     final Auth auth = Auth.instance;
     currentUser = await auth.currentUser;
+  }
+
+  checkUser() async {
+    if (currentUser!.id != null) {
+      Map<String, dynamic> data = {
+        "user_id": currentUser!.id.toString(),
+      };
+      String jsonData = json.encode(data);
+
+      try {
+        final response = await http.post(
+          Uri.parse("https://admin.glamcode.in/api/user-avail"),
+          body: jsonData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        );
+
+        if (response.statusCode == 200) {
+          CheckUserExist checkUserExist =
+              CheckUserExist.fromJson(json.decode(response.body));
+          log("log(checkUserExist.isExist.toString());");
+          log(checkUserExist.isExist.toString());
+          if (checkUserExist.isExist == false) {
+            log("User Not Found in Data Base- Deleting the User from app");
+            dio.deleteUser();
+            context.read<CartBloc>().add(CartCleared());
+            final AuthBloc authBloc = context.read<AuthBloc>();
+            authBloc.userRepository.signOut();
+            authBloc.add(AppLoaded());
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => Home(authBloc: authBloc)),
+                ModalRoute.withName('/index'));
+          }
+        } else {
+          // Handle error response
+          print('Request failed with status: ${response.statusCode}');
+          // You might want to update state or show an error message here
+        }
+      } catch (error) {
+        // Handle other errors
+        print('Error: $error');
+        // You might want to update state or show an error message here
+      }
+    }
   }
 
   @override
@@ -58,20 +111,8 @@ class _CartScreenState extends State<CartScreen> {
     CouponRepository.instance.clearCouponInstance();
     context.read<CartDataBloc>().add(CartDataUpdate());
     _future = DioClient.instance.getAddress();
-    super.initState();
 
-    //Hiding bottom servicebar
-    scrollController.addListener(() {
-      if (scrollController.position.pixels > 0 ||
-          scrollController.position.pixels <
-              scrollController.position.maxScrollExtent) {
-        scroll_visibility = false;
-      } else {
-        scroll_visibility = true;
-        setState(() {});
-      }
-    });
-    //End scroll Controller
+    super.initState();
   }
 
   @override
@@ -165,9 +206,6 @@ class _CartScreenState extends State<CartScreen> {
                                                                 Radius.circular(
                                                                     30))),
                                                 tileColor: Colors.white,
-                                                // title: Text(addressList[0]
-                                                //     .address
-                                                //     .toString()),
                                                 title: Text(
                                                   primaryAddressDetails
                                                           ?.addressHeading ??
@@ -190,8 +228,8 @@ class _CartScreenState extends State<CartScreen> {
                                                 ),
                                                 leading: const Icon(
                                                     Icons.location_on_outlined),
-                                                trailing:
-                                                    Icon(Icons.arrow_drop_down),
+                                                trailing: const Icon(
+                                                    Icons.arrow_drop_down),
                                                 // trailing: TextButton(
                                                 //   onPressed: () {
                                                 //     Navigator.of(context).push(
@@ -377,6 +415,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     fontSize: Dimensions
                                                         .fontSizeExtraLarge)),
                                             onPressed: () {
+                                              checkUser();
                                               if ((cartState.cartData
                                                           .originalAmount !=
                                                       null) &&
