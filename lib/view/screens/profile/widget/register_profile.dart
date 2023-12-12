@@ -1,3 +1,4 @@
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ class RegisterProfileScreen extends StatefulWidget {
 class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+    FacebookAppEvents facebookAppEvents = FacebookAppEvents();
 
   @override
   void initState() {
@@ -27,6 +29,13 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
     nameController.text = widget.user.name ?? "";
     emailController.text = widget.user.email ?? "";
     loading = false;
+     
+    facebookAppEvents.logEvent(
+      name: 'Registration Page',
+      parameters: {
+        'visited Registration Page': 'visited Registration Page',
+      },
+    );
   }
 
   final _registerProfileFormKey = GlobalKey<FormState>();
@@ -59,6 +68,10 @@ class _RegisterProfileScreenState extends State<RegisterProfileScreen> {
                             Dimensions.PADDING_SIZE_DEFAULT),
                         child: TextButton(
                           onPressed: () {
+                            facebookAppEvents.setUserData(
+                    email: emailController.text.trim(),
+                    firstName: nameController.text.trim(),
+                  );
                             setState(() {
                               loading = true;
                             });

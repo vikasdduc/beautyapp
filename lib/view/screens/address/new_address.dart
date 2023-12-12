@@ -1,3 +1,4 @@
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glamcode/data/api/api_helper.dart';
@@ -53,6 +54,14 @@ class _NewAddressScreenState extends State<NewAddressScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getUser();
     });
+    addressController.clear();
+    FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+    facebookAppEvents.logEvent(
+      name: 'Add New Address Page',
+      parameters: {
+        'visited Add New Address Page': 'visited to Add New Address page',
+      },
+    );
   }
 
   late SharedPreferences prefs;
@@ -71,8 +80,11 @@ class _NewAddressScreenState extends State<NewAddressScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("ADD NEW ADDRESS"),
+        automaticallyImplyLeading: false,
+        title: const Center(child: Text("ADD NEW ADDRESS")),
+        elevation: 0,
       ),
       body: loading
           ? const LoadingScreen()
@@ -85,17 +97,116 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      customTextField(
-                          "Name", nameController, TextInputType.text, null),
-                      customTextField("House no./ Flat no. ", addressController,
-                          TextInputType.text, null),
-                      customTextField(
-                          "Location Address",
-                          locationAddressController,
-                          TextInputType.streetAddress,
-                          null),
-                      customTextField("Mobile Number", mobileController,
-                          TextInputType.phone, null),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Row(
+                              children: [
+                                Icon(Icons.location_on),
+                                Text(
+                                  "Address Details",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "  ${widget.locAddress.toString()}",
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusColor: Colors.black,
+                            floatingLabelStyle:
+                                const TextStyle(color: Colors.black),
+                            labelStyle:
+                                TextStyle(color: const Color(0xFF424242)),
+                            labelText: "Name",
+                          ),
+                          keyboardType: TextInputType.text,
+                          controller: nameController,
+                          // validator: defaultValidator,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusColor: Colors.black,
+                            floatingLabelStyle:
+                                const TextStyle(color: Colors.black),
+                            labelStyle:
+                                TextStyle(color: const Color(0xFF424242)),
+                            labelText: "House no./ Flat no.",
+                          ),
+                          keyboardType: TextInputType.text,
+                          controller: addressController,
+                          // validator: defaultValidator,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusColor: Colors.black,
+                            floatingLabelStyle:
+                                const TextStyle(color: Colors.black),
+                            labelStyle:
+                                TextStyle(color: const Color(0xFF424242)),
+                            labelText: "Location Address",
+                          ),
+                          keyboardType: TextInputType.text,
+                          controller: locationAddressController,
+                          // validator: defaultValidator,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            focusColor: Colors.black,
+                            floatingLabelStyle:
+                                const TextStyle(color: Colors.black),
+                            labelStyle:
+                                TextStyle(color: const Color(0xFF424242)),
+                            labelText: "Mobile Number",
+                          ),
+                          keyboardType: TextInputType.phone,
+                          controller: mobileController,
+                          // validator: defaultValidator,
+                        ),
+                      ),
+                      // customTextField(
+                      //     "Name", nameController, TextInputType.text, null),
+                      // customTextField("House no./ Flat no. ", addressController,
+                      //     TextInputType.text, null),
+                      // customTextField(
+                      //     "Location Address",
+                      //     locationAddressController,
+                      //     TextInputType.streetAddress,
+                      //     null),
+                      // customTextField("Mobile Number", mobileController,
+                      //     TextInputType.phone, null),
                       Padding(
                         padding: const EdgeInsets.all(
                             Dimensions.PADDING_SIZE_DEFAULT),
@@ -113,7 +224,8 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                                 lattitude: widget.latitude,
                                 longitude: widget.longitude,
                                 mobileNumber: currentUser.mobile,
-                                callingCode: currentUser.callingCode);
+                                callingCode: currentUser.callingCode,
+                                isPrimary: true);
                             savepref(address.address.toString());
                             if (_newAddressFormKey.currentState!.validate()) {
                               DioClient.instance

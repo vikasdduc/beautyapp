@@ -1,3 +1,4 @@
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/material.dart';
 import 'package:glamcode/data/api/api_helper.dart';
 import 'package:glamcode/data/model/packages_model/service.dart';
@@ -18,7 +19,15 @@ class _PackagesState extends State<Packages> {
   void initState() {
     _future = DioClient.instance.getPreferredPack();
     print(_future);
+    
     super.initState();
+    FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+    facebookAppEvents.logEvent(
+      name: 'Service Page',
+      parameters: {
+        'visited Service Page': 'visited Service Page',
+      },
+    );
   }
 
   @override

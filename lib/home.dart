@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
-import 'package:glamcode/view/screens/home/map_location/searchLocationMap.dart';
 import 'package:glamcode/view/screens/login/login_screen.dart';
 import 'package:glamcode/view/screens/profile/widget/register_profile.dart';
 import 'blocs/auth/auth_bloc.dart';
-import 'controller/location_controller.dart';
-import 'data/model/address_details_model.dart';
 
 class Home extends StatelessWidget {
   final AuthBloc authBloc;

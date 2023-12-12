@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,13 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
     currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     context.read<CartDataBloc>().add(const CartBookingSlotUpdate(""));
     super.initState();
+    FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+    facebookAppEvents.logEvent(
+      name: 'Slot Booking Page',
+      parameters: {
+        'visited Add New Address Page': 'visited to Add New Address page',
+      },
+    );
   }
 
   Future<BookingSlotModel?> getBookingSlots(DateTime dateTime) {
@@ -246,16 +254,16 @@ class _SelectBookingDateScreenState extends State<SelectBookingDateScreen> {
                           if (cartState.cartData.bookingDateTime != null &&
                               cartState.cartData.bookingDateTime != "") {
                             // Navigator.pushNamed(context, '/cart');
-                            
+
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
                             //         builder: (context) =>
                             //             const PaymentScreen()));
-                                         Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => const CartScreen()));
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => const CartScreen()));
 
                             //was builder: (context) => const cartScreen()));
                             // Navigator.pushNamed(context, '/payment');

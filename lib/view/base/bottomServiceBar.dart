@@ -50,8 +50,9 @@ class BottomServiceBar extends StatelessWidget {
                                       : "Add Services of Rs ${context.read<CartBloc>().getUpcomingDiscount(cartState.cartData.originalAmount!).minimumPurchaseAmount! - cartState.cartData.originalAmount!} to unlock Coupon Code ${context.read<CartBloc>().getUpcomingDiscount(cartState.cartData.originalAmount!).title}",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: Dimensions.fontSizeSmall),
+                                  color: Colors.red,
+                                  fontSize: Dimensions.fontSizeSmall,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           Container(

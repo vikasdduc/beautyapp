@@ -1,3 +1,4 @@
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -74,7 +75,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
     });
     CartData cartData =
         await context.read<CartDataBloc>().cartDataRepository.loadItems();
-    _bookOrder(cartData, response.paymentId ?? "");
+    _bookOrder(
+        cartData, response.paymentId ?? "", cartData.amountToPay.toString());
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -182,7 +184,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           setState(() {
                             loading = true;
                           });
-                          _bookOrder(cartState.cartData, "");
+                          _bookOrder(cartState.cartData, "",
+                              cartState.cartData.amountToPay.toString());
                         } else if (_selectedOption == 0) {
                           User user = await Auth.instance.currentUser;
                           bool k = _handlePayment(cartState.cartData, user);
@@ -267,10 +270,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  void _bookOrder(CartData cartData, String s) {
+  void _bookOrder(CartData cartData, String s, String amount) {
+    final facebookAppEvents = FacebookAppEvents();
     paymentRepository.bookingsApi(cartData, "cash").then((result) {
       if (result != null) {
         context.read<CartBloc>().add(CartCleared());
+        facebookAppEvents.logPurchase(
+            amount: double.parse(amount), currency: "INR");
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/payment-success', (Route<dynamic> route) => false,
             arguments: result);

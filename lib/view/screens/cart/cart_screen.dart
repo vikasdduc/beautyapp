@@ -10,6 +10,7 @@ import 'package:glamcode/data/model/coupons.dart';
 import 'package:glamcode/data/model/packages_model/service.dart';
 import 'package:glamcode/data/model/user.dart';
 import 'package:glamcode/data/repository/coupon_repository.dart';
+import 'package:glamcode/main.dart';
 import 'package:glamcode/util/dimensions.dart';
 import 'package:glamcode/view/base/custom_divider.dart';
 import 'package:glamcode/view/base/error_screen.dart';
@@ -111,6 +112,12 @@ class _CartScreenState extends State<CartScreen> {
     CouponRepository.instance.clearCouponInstance();
     context.read<CartDataBloc>().add(CartDataUpdate());
     _future = DioClient.instance.getAddress();
+    facebookAppEvents.logEvent(
+                    name: 'Visited Cart',
+                    parameters: {
+                      'visited cart': 'visited to final cart page',
+                    },
+                  );
 
     super.initState();
   }
@@ -265,6 +272,8 @@ class _CartScreenState extends State<CartScreen> {
                                           : InkWell(
                                               onTap: () {
                                                 setState(() {});
+                                                
+                
                                                 print("currentUser!.id");
                                                 if (currentUser!.id == 0) {
                                                   // Navigator

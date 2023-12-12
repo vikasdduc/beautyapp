@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class BookingSuccessScreen extends StatefulWidget {
 class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
   late bool _showFrontSide;
   late bool _flipXAxis;
+  
 
   updatecon() {
     FirebaseAnalytics.instance.setCurrentScreen(
@@ -35,6 +37,13 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
     updatecon();
     _showFrontSide = true;
     _flipXAxis = true;
+    FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+    facebookAppEvents.logEvent(
+                    name: 'Confirmation Page',
+                    parameters: {
+                      'visited Confirmation Page': 'visited to Confirmation Page page',
+                    },
+                  );
   }
 
   @override
@@ -92,7 +101,7 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
           const SizedBox(
             height: 50,
           ),
-          if (bookingResponse.coupon != null) ...[
+          if (bookingResponse.coupon?.points != null) ...[
             Container(
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(50)),
@@ -105,8 +114,16 @@ class _BookingSuccessScreenState extends State<BookingSuccessScreen> {
                 brushSize: 30,
                 threshold: 50,
                 // color: Color.fromARGB(255, 16, 115, 255),
-                onChange: (value) => print("Scratch progress: $value%"),
-                onThreshold: () => print("Threshold reached, you won!"),
+                onChange: (value) {
+                  print("Scratch progress: $value%");
+                  if (value > 60) {
+                    value = 100;
+                  }
+                },
+                onThreshold: () {
+                  print("Threshold reached, you won!");
+                  
+                },
                 child: Container(
                   width: 200,
                   height: 200,
