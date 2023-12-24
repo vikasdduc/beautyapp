@@ -218,6 +218,7 @@ class _NewAddressScreenState extends State<NewAddressScreen>
                             });
                             AddressDetails address = AddressDetails(
                                 userId: currentUser.id,
+                              
                                 addressHeading: nameController.text,
                                 address: addressController.text,
                                 street: locationAddressController.text,

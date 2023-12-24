@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glamcode/blocs/cart_data/cart_data_bloc.dart';
@@ -16,11 +14,7 @@ import 'package:glamcode/view/base/custom_divider.dart';
 import 'package:glamcode/view/base/error_screen.dart';
 import 'package:glamcode/view/base/package_tile.dart';
 import 'package:glamcode/view/screens/address/address_screen.dart';
-import 'package:glamcode/view/screens/address/select_address.dart';
 import 'package:glamcode/view/screens/coupon/coupon_screen.dart';
-import 'package:glamcode/view/screens/dashboard/dashboard_screen.dart';
-import 'package:glamcode/view/screens/login/login_screen.dart';
-
 import '../../../blocs/auth/auth_bloc.dart';
 import '../../../blocs/cart/cart_bloc.dart';
 import '../../../data/api/api_helper.dart';
@@ -28,7 +22,6 @@ import '../../../data/model/address_details_model.dart';
 import '../../../data/model/checkUserExist.dart';
 import '../../../home.dart';
 import '../../base/loading_screen.dart';
-import '../address/selectnew_address.dart';
 import '../home/map_location/searchLocationMap.dart';
 import '../payment/payment_screen.dart';
 import 'package:http/http.dart' as http;
@@ -48,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
   bool useWallet = true;
   late final AuthBloc authBloc;
   late User user;
-  late CheckForAuth checkForAuth;
+
   User? currentUser;
   String? checkUserString;
 
@@ -80,7 +73,7 @@ class _CartScreenState extends State<CartScreen> {
           log(checkUserExist.isExist.toString());
           if (checkUserExist.isExist == false) {
             log("User Not Found in Data Base- Deleting the User from app");
-            dio.deleteUser();
+            // dio.deleteUser();
             context.read<CartBloc>().add(CartCleared());
             final AuthBloc authBloc = context.read<AuthBloc>();
             authBloc.userRepository.signOut();
@@ -106,18 +99,17 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     initialize();
-    checkForAuth = const CheckForAuth();
 
     user = const User();
     CouponRepository.instance.clearCouponInstance();
     context.read<CartDataBloc>().add(CartDataUpdate());
     _future = DioClient.instance.getAddress();
     facebookAppEvents.logEvent(
-                    name: 'Visited Cart',
-                    parameters: {
-                      'visited cart': 'visited to final cart page',
-                    },
-                  );
+      name: 'Visited Cart',
+      parameters: {
+        'visited cart': 'visited to final cart page',
+      },
+    );
 
     super.initState();
   }
@@ -180,7 +172,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     useSafeArea: true,
                                                     enableDrag: true,
                                                     showDragHandle: true,
-                                                    shape: RoundedRectangleBorder(
+                                                    shape: const RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius.only(
                                                                 topLeft: Radius
@@ -202,16 +194,17 @@ class _CartScreenState extends State<CartScreen> {
                                                     });
                                               },
                                               child: ListTile(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                              30,
-                                                            ),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    30))),
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                  30,
+                                                                ),
+                                                                bottomRight: Radius
+                                                                    .circular(
+                                                                        30))),
                                                 tileColor: Colors.white,
                                                 title: Text(
                                                   primaryAddressDetails
@@ -272,8 +265,7 @@ class _CartScreenState extends State<CartScreen> {
                                           : InkWell(
                                               onTap: () {
                                                 setState(() {});
-                                                
-                
+
                                                 print("currentUser!.id");
                                                 if (currentUser!.id == 0) {
                                                   // Navigator
@@ -424,17 +416,24 @@ class _CartScreenState extends State<CartScreen> {
                                                     fontSize: Dimensions
                                                         .fontSizeExtraLarge)),
                                             onPressed: () {
-                                              checkUser();
+                                              // checkUser();
+
+                                              // if ((cartState.cartData
+                                              //             .originalAmount !=
+                                              //         null) &&
+                                              //     (cartState
+                                              //             .cartData.mincheck !=
+                                              //         null)) {
+                                              //   if (cartState.cartData
+                                              //           .originalAmount! >=
+                                              //       cartState
+                                              //           .cartData.mincheck!) {
                                               if ((cartState.cartData
-                                                          .originalAmount !=
-                                                      null) &&
-                                                  (cartState
-                                                          .cartData.mincheck !=
-                                                      null)) {
+                                                      .originalAmount !=
+                                                  null)) {
                                                 if (cartState.cartData
                                                         .originalAmount! >=
-                                                    cartState
-                                                        .cartData.mincheck!) {
+                                                    599) {
                                                   // Navigator.push(
                                                   //     context,
                                                   //     MaterialPageRoute(
@@ -712,66 +711,5 @@ class _PriceDetailsState extends State<PriceDetails> {
         }
       },
     );
-  }
-}
-
-class CheckForAuth extends StatefulWidget {
-  const CheckForAuth({super.key});
-
-  @override
-  State<CheckForAuth> createState() => _CheckForAuthState();
-}
-
-class _CheckForAuthState extends State<CheckForAuth> {
-  @override
-  Widget build(BuildContext context) {
-    final AuthBloc authBloc = context.read<AuthBloc>();
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        // TODO: implement listener
-
-        if (state == UnauthenticatedState) {
-          setState(() {
-            checkedauth = 0;
-          });
-        } else {
-          setState(() {
-            checkedauth = 1;
-          });
-        }
-      },
-      child: Container(),
-    );
-
-    //   return BlocBuilder<AuthBloc, AuthState>(
-    //       bloc: authBloc,
-    //       builder: (context, state) {
-    //         setState(() {
-    //           if (state is UnauthenticatedState) {
-    //             checkedauth = 0;
-    //           } else if (state is AuthenticatedState) {
-    //             checkedauth = 1;
-    //             // } else if (state is LoadingAuthenticationState) {
-    //             //   return const Center(child: CircularProgressIndicator());
-    //             // } else if (state is ErrorAuthenticationState) {
-    //             //   return const Scaffold(
-    //             //     body: Center(
-    //             //       child: Text("Something is wrong"),
-    //             //     ),
-    //             //   );
-    //             // } else {
-    //             //   return const Scaffold(
-    //             //     body: Center(
-    //             //       child: Text("something is wrong"),
-    //             //     ),
-    //             //   );
-    //             // }
-    //           }
-    //         });
-    //         print(
-    //             "checkfor authentication function11111111100000000012341342134289798047128937489012739084790812374590812379058798342758907234890758903475890732489075908324750987324905790382475908237490587239804758902347598072349085790823475890723490857980234758902347890579028347589023475890723980475980237495 $checkedauth");
-    //         return const Center(child: CircularProgressIndicator());
-    //       });
-    // }
   }
 }

@@ -113,16 +113,14 @@ class BottomServiceBar extends StatelessWidget {
                                         children: [
                                           ElevatedButton(
                                             onPressed: () {
-                                              if ((cartState.cartData
-                                                          .originalAmount !=
-                                                      null) &&
-                                                  (cartState
-                                                          .cartData.mincheck !=
-                                                      null)) {
+                                              // if ((cartState.cartData.originalAmount !=null) &&(cartState.cartData.mincheck !=null)) {
+                                              //   if (cartState.cartData.originalAmount! >=cartState.cartData.mincheck!) {
+                                              if (cartState.cartData
+                                                      .originalAmount !=
+                                                  null) {
                                                 if (cartState.cartData
                                                         .originalAmount! >=
-                                                    cartState
-                                                        .cartData.mincheck!) {
+                                                    599) {
                                                   Navigator.pushNamed(
                                                       context, '/addons');
                                                   // Navigator.push(
@@ -148,16 +146,27 @@ class BottomServiceBar extends StatelessWidget {
                                                   //         Duration(seconds: 1),
                                                   //   ));
                                                   // }
+
+                                                  // } else {
+                                                  //   ScaffoldMessenger.of(context)
+                                                  //       .showSnackBar(SnackBar(
+                                                  //     content: Text(
+                                                  //         'Please add items worth ${cartState.cartData.mincheck} to proceed.'),
+                                                  //     duration: const Duration(
+                                                  //         seconds: 1),
+                                                  //   ));
+                                                  // }
                                                 } else {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(
                                                     content: Text(
-                                                        'Please add items worth ${cartState.cartData.mincheck} to proceed.'),
+                                                        'Please add items worth 599 to proceed.'),
                                                     duration: const Duration(
                                                         seconds: 1),
                                                   ));
                                                 }
                                               }
+
                                               // Navigator.pushNamed(
                                               //     context, '/addons');
                                             },
@@ -234,7 +243,7 @@ class BottomServiceBar extends StatelessWidget {
                       ),
                     );
             } else {
-              return const SizedBox();
+              return Container();
             }
           },
         );
