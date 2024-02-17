@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_version_checker/flutter_app_version_checker.dart';
 import 'package:glamcode/data/model/auth.dart';
 import 'package:glamcode/helper/responsive_helper.dart';
 import 'package:glamcode/util/dimensions.dart';
@@ -13,7 +13,9 @@ import 'package:glamcode/view/screens/location/location_screen.dart';
 import 'package:glamcode/view/screens/my_booking/my_booking_screen.dart';
 import 'package:glamcode/view/screens/notification/notification_screen.dart';
 import 'package:glamcode/view/screens/profile/profile_screen.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:version/version.dart';
 import '../../../util/custom_drawer.dart';
 import 'package:launch_review/launch_review.dart';
 
@@ -43,11 +45,11 @@ class DashboardScreenState extends State<DashboardScreen> {
   late SharedPreferences prefs;
   late bool isCitySelected;
 
+
+
   @override
   void initState() {
     super.initState();
-    final checker = AppVersionChecker();
-    checker.checkUpdate();
 
     _pageIndex = widget.pageIndex;
 
@@ -82,7 +84,6 @@ class DashboardScreenState extends State<DashboardScreen> {
         context,
         Icons.person_outlined,
         "Profile",
-        
       )
     ];
 
@@ -107,8 +108,6 @@ class DashboardScreenState extends State<DashboardScreen> {
                   style: TextStyle(color: Colors.white)),
               behavior: SnackBarBehavior.floating,
               backgroundColor: Color(0xFF882EDF),
-            
-
               duration: Duration(seconds: 2),
               margin: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
             ));

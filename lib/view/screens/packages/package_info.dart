@@ -5,7 +5,6 @@ import 'package:glamcode/util/dimensions.dart';
 import 'package:glamcode/view/base/bottomServiceBar.dart';
 import 'package:glamcode/view/base/custom_divider.dart';
 import 'package:glamcode/view/base/golden_text.dart';
-
 import '../../base/cart_counter.dart';
 
 class PackageInfo extends StatelessWidget {

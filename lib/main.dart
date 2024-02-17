@@ -24,7 +24,6 @@ Uuid uuid = const Uuid();
 FacebookAppEvents facebookAppEvents = FacebookAppEvents();
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  // print('Handling a background message ${message.messageId}');
 }
 
 Future<void> main() async {
@@ -36,13 +35,11 @@ Future<void> main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
     sound: true,
   );
-  
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
@@ -51,6 +48,7 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+
   final GoogleMapsFlutterPlatform mapsImplementation =
       GoogleMapsFlutterPlatform.instance;
   if (mapsImplementation is GoogleMapsFlutterAndroid) {
@@ -62,7 +60,7 @@ Future<void> main() async {
   DioClient dioClient = DioClient.instance;
   SharedPreferences prefs = await SharedPreferences.getInstance();
   UserRepository userRepository =
-      UserRepository(auth: auth, dioClient: dioClient);
+  UserRepository(auth: auth, dioClient: dioClient);
   ShoppingRepository shoppingRepository = ShoppingRepository(
       auth: auth, dioClient: dioClient, sharedPreferences: prefs);
   CouponRepository couponRepository = CouponRepository.instance;

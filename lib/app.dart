@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:ui';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,6 @@ import 'package:glamcode/data/repository/shopping_repository.dart';
 import 'package:glamcode/splash_screen.dart';
 import 'package:glamcode/theme/light_theme.dart';
 import 'package:glamcode/util/app_constants.dart';
-import 'package:glamcode/view/refertoearn/invitetoearn.dart';
 import 'package:glamcode/view/screens/about/about.dart';
 import 'package:glamcode/view/screens/addons/addons_screen.dart';
 import 'package:glamcode/view/screens/address/address_screen.dart';
@@ -29,8 +27,8 @@ import 'package:glamcode/view/screens/privacy_policy/privacy_policy_screen.dart'
 import 'package:glamcode/view/screens/select_booking/select_booking_screen.dart';
 import 'package:glamcode/view/screens/terms_and_conditions/terms_and_conditions_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:package_info/package_info.dart';
 import 'package:upgrader/upgrader.dart';
-
 import 'blocs/auth/auth_bloc.dart';
 import 'data/api/api_helper.dart';
 import 'data/model/auth.dart';
@@ -38,6 +36,7 @@ import 'data/repository/user_repository.dart';
 import 'home.dart';
 import 'main.dart';
 import 'util/delete_my_account.dart';
+import 'view/screens/update/update_screen.dart';
 
 class MyApp extends StatefulWidget {
   final UserRepository userRepository;
@@ -59,6 +58,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool x = false;
+
+  final cfg = AppcastConfiguration(
+    url:
+        'https://raw.githubusercontent.com/larryaasen/upgrader/master/test/testappcast.xml',
+    supportedOS: ['android', 'ios'], );
   late AuthBloc authBloc;
   late CartBloc cartBloc;
   late CartDataBloc cartDataBloc;
@@ -82,6 +87,22 @@ class _MyAppState extends State<MyApp> {
         "-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=->$token");
   }
 
+  // Future<void> printCurrentPackageInfo() async {
+  //   try {
+  //     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //     print('Package Name: ${packageInfo.packageName}');
+  //     print('App Name: ${packageInfo.appName}');
+  //     print('Version: ${packageInfo.version}');
+  //     print('Build Number: ${packageInfo.buildNumber}');
+  //     if (packageInfo.version.toString() != '2.0.2') {
+  //       setState(() {
+  //         x = true;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print('Error getting package info: $e');
+  //   }
+  // }
   @override
   void initState() {
     authBloc = AuthBloc(userRepository: userRepository, dioClient: dioClient);
@@ -93,7 +114,7 @@ class _MyAppState extends State<MyApp> {
     addonBloc = AddonBloc(shoppingRepository, cartDataBloc);
     addonBloc.add(AddonStarted());
     super.initState();
-
+    // printCurrentPackageInfo();
     var initializationSettingsAndroid =
         const AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid =
@@ -191,7 +212,34 @@ class _MyAppState extends State<MyApp> {
           '/': (context) => SplashScreen(
                 authBloc: authBloc,
               ),
-          "/index": (context) => UpgradeAlert(child: Home(authBloc: authBloc)),
+             // "/index": (context) =>
+              //     x
+              //         ? UpdateScreen(
+             //             authBloc: authBloc,
+             //           )
+              //         :
+              // UpgradeAlert(
+              //   child: Home(authBloc: authBloc),
+              //   upgrader: Upgrader(
+              //     dialogStyle: Platform.isIOS
+              //         ? UpgradeDialogStyle.cupertino
+              //         : UpgradeDialogStyle.material,
+              //     // appcastConfig: cfg,
+              //     debugLogging: true,
+              //     showLater: false,
+              //     showIgnore: false,
+              //     minAppVersion: '2.0.1',
+              //     shouldPopScope: () => false,
+              //     onIgnore: () => false,
+              //     onLater: () => false,
+              //     onUpdate: () => true,
+              //     // debugDisplayAlways: true,
+              //     canDismissDialog: false,
+              //   ),
+              // ),
+
+           "/index": (context) =>UpgradeAlert(child: Home(authBloc: authBloc),),
+            // "/index": (context) => UpdateScreen(authBloc: authBloc,),
           "/dashboard": (context) => const DashboardScreen(pageIndex: 0),
           "/home": (context) => const HomeScreen(),
           "/location": (context) => const SelectLocationScreen(),

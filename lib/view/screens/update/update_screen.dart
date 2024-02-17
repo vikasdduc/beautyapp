@@ -1,20 +1,22 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:upgrader/upgrader.dart';
 
+import '../../../blocs/auth/auth_bloc.dart';
+import '../../../home.dart';
+
 class UpdateScreen extends StatelessWidget {
+  final AuthBloc authBloc;
   final cfg = AppcastConfiguration(
+      // url:
+      //     'https://raw.githubusercontent.com/jeejaykim/apispa/jeejaykim-test/test.xml',
       url:
-          'https://raw.githubusercontent.com/jeejaykim/apispa/jeejaykim-test/test.xml',
+          'https://raw.githubusercontent.com/larryaasen/upgrader/master/test/testappcast.xml',
       supportedOS: ['android', 'ios']);
 
-  UpdateScreen({super.key});
-  //final bool isUpdate;
-  //const UpdateScreen({Key? key, required this.isUpdate}) : super(key: key);
-  // Future<PackageInfo> _getPackageInfo() {
-  //   return PackageInfo.fromPlatform();
-  // }
+  UpdateScreen({super.key, required this.authBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +53,24 @@ class UpdateScreen extends StatelessWidget {
         child: Scaffold(
             body: UpgradeAlert(
           upgrader: Upgrader(
+            client: Client(),
             dialogStyle: Platform.isIOS
                 ? UpgradeDialogStyle.cupertino
                 : UpgradeDialogStyle.material,
-            appcastConfig: cfg,
-            debugLogging: true,
+            // appcastConfig: cfg,
+            // debugLogging: true,
             showLater: false,
             showIgnore: false,
-            minAppVersion: '1.2.6',
-            shouldPopScope: () => true,
+            minAppVersion: '2.0.1',
+            shouldPopScope: () => false,
+            onIgnore: () => false,
+            onLater: () => false,
+            onUpdate: () => true,
+            debugDisplayAlways: true,
+            canDismissDialog: false,
           ),
-          child: const Center(child: Text("checking")),
+          // child: const Center(child: Text("checking for updates...")),
+          child: Home(authBloc: authBloc),
         )));
   }
 }
